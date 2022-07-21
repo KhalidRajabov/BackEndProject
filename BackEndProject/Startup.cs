@@ -1,6 +1,11 @@
+using BackEndProject.DAL;
+using BackEndProject.Helper;
+using BackEndProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +31,34 @@ namespace BackEndProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<AppDbContext>(option =>
+            {
+                option.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
+            });
+
+            //services.AddScoped<ISum, SumService>();
+
+            services.AddSession(opt =>
+            {
+                opt.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
+            services.AddIdentity<AppUser, IdentityRole>(opt =>
+            {
+                opt.Password.RequiredLength = 8;
+                opt.Password.RequireNonAlphanumeric = true;
+                opt.Password.RequireLowercase = true;
+                opt.Password.RequireUppercase = true;
+                opt.Password.RequireDigit = true;
+
+                opt.User.RequireUniqueEmail = true;
+                opt.SignIn.RequireConfirmedEmail = true;
+                opt.Lockout.MaxFailedAccessAttempts = 3;
+                opt.Lockout.AllowedForNewUsers = true;
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+
+
+
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddErrorDescriber<RegisterErrorMessages>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
