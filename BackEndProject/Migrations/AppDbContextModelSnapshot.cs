@@ -124,6 +124,21 @@ namespace BackEndProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "45 Grand Central Terminal New York,NY 1017 United State USA",
+                            Author = "Me Myself",
+                            CardsImageUrl = "payment.png",
+                            CouponCode = "<p>Get FREE Shipping with <b>$35!</b> Code: FREESHIPPING</p>",
+                            Email = "email@yourwebsitename.com",
+                            Logo = "logo.png",
+                            Phone = 123456789,
+                            SupportNumber = 500500500,
+                            WorkTimes = "Mon-Sat 9:00pm - 5:00pm Sun:Closed"
+                        });
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Brand", b =>
@@ -169,7 +184,7 @@ namespace BackEndProject.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastUpdatedAt")
@@ -186,6 +201,350 @@ namespace BackEndProject.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 21,
+                            ImageUrl = "category-6.jpg",
+                            Name = "Computers"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ImageUrl = "category-2.jpg",
+                            Name = "Monitors"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ImageUrl = "category-8.jpg",
+                            Name = "Watches"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ImageUrl = "category-1.jpg",
+                            Name = "Notebooks"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ImageUrl = "category-4.jpg",
+                            Name = "Game Consoles"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            ImageUrl = "category-9.jpg",
+                            Name = "Washing Machine"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            ImageUrl = "category-12.jpg",
+                            Name = "Batteries"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            ImageUrl = "category-10.jpg",
+                            Name = "Cameras"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            ImageUrl = "category-7.jpg",
+                            Name = "Printers"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            ImageUrl = "category-8.jpg",
+                            Name = "Video Games"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            ImageUrl = "category-8.jpg",
+                            Name = "Accessories"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            ImageUrl = "category-13.jpg",
+                            Name = "Implants"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            ImageUrl = "category-14.jpg",
+                            Name = "Gerenade Laucnhers"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            ImageUrl = "category-15.jpg",
+                            Name = "Pets"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            ImageUrl = "category-16.jpg",
+                            Name = "Nuclear Weapons"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            ImageUrl = "category-17.jpg",
+                            Name = "SuperCars"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            ImageUrl = "category-18.jpg",
+                            Name = "Space Ships"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            ImageUrl = "category-19.jpg",
+                            Name = "Tanks"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            ImageUrl = "category-20.jpg",
+                            Name = "Automatic Assault Rifles"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Name = "Nasa Super Computers",
+                            ParentId = 21
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Name = "Office Computers",
+                            ParentId = 21
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Name = "Gaming Monitor",
+                            ParentId = 22
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Name = "Standart Monitor",
+                            ParentId = 22
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Name = "Digital Watches",
+                            ParentId = 23
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Name = "Analog Watches",
+                            ParentId = 23
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Name = "Gaming Notebook",
+                            ParentId = 24
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Name = "Word Notebook",
+                            ParentId = 24
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Name = "Wired Oldschool",
+                            ParentId = 25
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Name = "Next Generation",
+                            ParentId = 25
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Name = "Large Machine",
+                            ParentId = 26
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Name = "Standart",
+                            ParentId = 26
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Name = "Power Banks",
+                            ParentId = 27
+                        },
+                        new
+                        {
+                            Id = 54,
+                            Name = "Adapters",
+                            ParentId = 27
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Name = "Telescopic Cameras",
+                            ParentId = 28
+                        },
+                        new
+                        {
+                            Id = 56,
+                            Name = "Digital Cameras",
+                            ParentId = 28
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Name = "Laser Printers",
+                            ParentId = 29
+                        },
+                        new
+                        {
+                            Id = 58,
+                            Name = "Inky Printers",
+                            ParentId = 29
+                        },
+                        new
+                        {
+                            Id = 59,
+                            Name = "Bracalet",
+                            ParentId = 32
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Name = "Headsets",
+                            ParentId = 32
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Name = "Pc Video Games",
+                            ParentId = 31
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Name = "Console Video Games",
+                            ParentId = 31
+                        },
+                        new
+                        {
+                            Id = 63,
+                            Name = "Robotic Heart",
+                            ParentId = 33
+                        },
+                        new
+                        {
+                            Id = 64,
+                            Name = "Robotic Eye",
+                            ParentId = 33
+                        },
+                        new
+                        {
+                            Id = 65,
+                            Name = "Electronic",
+                            ParentId = 34
+                        },
+                        new
+                        {
+                            Id = 66,
+                            Name = "Close Range",
+                            ParentId = 34
+                        },
+                        new
+                        {
+                            Id = 67,
+                            Name = "Cats",
+                            ParentId = 35
+                        },
+                        new
+                        {
+                            Id = 68,
+                            Name = "Dogs",
+                            ParentId = 35
+                        },
+                        new
+                        {
+                            Id = 69,
+                            Name = "Hydrogen Bombs",
+                            ParentId = 36
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Name = "Electro Magnetic Bombs",
+                            ParentId = 36
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Name = "Supersports",
+                            ParentId = 37
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Name = "Hyper Cars",
+                            ParentId = 37
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Name = "Orbiter spacecraft",
+                            ParentId = 38
+                        },
+                        new
+                        {
+                            Id = 74,
+                            Name = "Rover Spacecraft",
+                            ParentId = 38
+                        },
+                        new
+                        {
+                            Id = 75,
+                            Name = "Heavy Tanks",
+                            ParentId = 39
+                        },
+                        new
+                        {
+                            Id = 76,
+                            Name = "Artillery Tanks",
+                            ParentId = 39
+                        },
+                        new
+                        {
+                            Id = 77,
+                            Name = "Close Range Rifles",
+                            ParentId = 40
+                        },
+                        new
+                        {
+                            Id = 78,
+                            Name = "Long Range Rifles",
+                            ParentId = 40
+                        });
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Order", b =>

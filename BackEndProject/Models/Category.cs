@@ -13,7 +13,7 @@ namespace BackEndProject.Models
         [NotMapped]
         public IFormFile Images { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
 
         public Nullable<DateTime> CreatedTime { get; set; }
         public Nullable<DateTime> DeletedAt { get; set; }
