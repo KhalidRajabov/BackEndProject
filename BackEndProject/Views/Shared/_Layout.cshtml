@@ -1,48 +1,88 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from demo.hasthemes.com/allup/allup/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Sep 2020 10:46:32 GMT -->
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BackEndProject</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+
+    <!--====== Title ======-->
+    <title>Allup - Electronics Responsive eCommerce HTML Template.</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="~/images/favicon.png" type="image/png">
+
+
+    <!-- CSS
+	============================================ -->
+
+    <!--===== Vendor CSS (Bootstrap & Icon Font) =====-->
+    
+    <link rel="stylesheet" href="~/css/plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/plugins/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/plugins/fontawesome.min.css">
+
+    <!--===== Plugins CSS (All Plugins Files) =====-->
+    
+    <link rel="stylesheet" href="~/css/plugins/slick.css">
+    <link rel="stylesheet" href="~/css/plugins/animate.css">
+    <link rel="stylesheet" href="~/css/plugins/jquery-ui.min.css">
+    <link rel="stylesheet" href="~/css/plugins/default.css">
+
+    <!--====== Main Style CSS ======-->
+    <link rel="stylesheet" href="~/css/style.css">
+
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+
+    <!-- <link rel="stylesheet" href="~/css/vendor/plugins.min.css">
+    <link rel="stylesheet" href="~/css/style.min.css"> -->
+
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BackEndProject</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <!--====== PRELOADER PART START ======-->
+
+    <div id="preloader">
+        <div class="preloader">
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - BackEndProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    @await Component.InvokeAsync("Header");
+
+    
+            @RenderBody()
+        
+    
+    @await Component.InvokeAsync("Footer");
+    <a href="#" class="back-to-top"><i class="ion-android-arrow-up"></i></a>
+
+
 </body>
+
+<script src="~/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/js/vendor/modernizr-3.7.1.min.js"></script>
+
+    <!--====== Plugins js ======-->
+    <script src="~/js/plugins/popper.min.js"></script>
+    <script src="~/js/plugins/bootstrap.min.js"></script>
+    <script src="~/js/plugins/slick.min.js"></script>
+    <script src="~/js/plugins/jquery.countdown.min.js"></script>
+    <script src="~/js/plugins/jquery-ui.min.js"></script>
+
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+
+    <!-- <script src="~/js/plugins.min.js"></script> -->
+    
+
+    <!--====== Main Activation js ======-->
+    <script src="~/js/main.js"></script>
+<!-- Mirrored from demo.hasthemes.com/allup/allup/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Sep 2020 10:47:16 GMT -->
 </html>

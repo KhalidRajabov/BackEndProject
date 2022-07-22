@@ -1,4 +1,6 @@
-﻿using BackEndProject.Models;
+﻿using BackEndProject.DAL;
+using BackEndProject.Models;
+using BackEndProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +13,18 @@ namespace BackEndProject.Controllers
 {
     public class HomeController : Controller
     {
-        
+        private readonly AppDbContext _context;
+
+        public HomeController(AppDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
-            return View();
+            HomeVM homeVM = new HomeVM();
+            homeVM.Sliders = _context.Sliders.ToList();
+            return View(homeVM);
         }
 
         

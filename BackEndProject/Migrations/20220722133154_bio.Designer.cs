@@ -4,14 +4,16 @@ using BackEndProject.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220722133154_bio")]
+    partial class bio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,45 +89,6 @@ namespace BackEndProject.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("BackEndProject.Models.Bio", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Author")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CardsImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CouponCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Logo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SupportNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkTimes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Bios");
-                });
-
             modelBuilder.Entity("BackEndProject.Models.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -150,7 +113,7 @@ namespace BackEndProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brand");
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Category", b =>
@@ -185,7 +148,7 @@ namespace BackEndProject.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Order", b =>
@@ -214,7 +177,7 @@ namespace BackEndProject.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("BackEndProject.Models.OrderItem", b =>
@@ -242,7 +205,7 @@ namespace BackEndProject.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Product", b =>
@@ -297,7 +260,7 @@ namespace BackEndProject.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("BackEndProject.Models.ProductImage", b =>
@@ -320,31 +283,7 @@ namespace BackEndProject.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
-                });
-
-            modelBuilder.Entity("BackEndProject.Models.Slider", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MainTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Subtitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sliders");
+                    b.ToTable("ProductImage");
                 });
 
             modelBuilder.Entity("BackEndProject.Models.TagProducts", b =>
