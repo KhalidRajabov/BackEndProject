@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackEndProject.Models
 {
@@ -9,6 +11,10 @@ namespace BackEndProject.Models
         public string Name { get; set; }
         public double Price { get; set; }
         public double DiscountPrice { get; set; }
+        public string ImageUrl { get; set; }
+        public int Count { get; set; }
+        [NotMapped]
+        public IFormFile Photo { get; set; }
         public bool IsFeatured { get; set; }
         public bool Bestseller { get; set; }
         public bool NewArrival { get; set; }

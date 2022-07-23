@@ -86,19 +86,19 @@ namespace BackEndProject.DAL
                 {
                     Id = 31,
                     Name = "Video Games",
-                    ImageUrl = "category-8.jpg"
+                    ImageUrl = "vg.jpg"
                 },
                 new Category
                 {
                     Id = 32,
                     Name = "Accessories",
-                    ImageUrl = "category-8.jpg"
+                    ImageUrl = "acc.jpg"
                 },
                 new Category
                 {
                     Id = 33,
                     Name = "Implants",
-                    ImageUrl = "category-13.jpg"
+                    ImageUrl = "hand.jpg"
                 },
                 new Category
                 {

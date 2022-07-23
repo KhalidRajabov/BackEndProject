@@ -4,14 +4,16 @@ using BackEndProject.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220723093016_productImage_count")]
+    partial class productImage_count
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,19 +262,19 @@ namespace BackEndProject.Migrations
                         new
                         {
                             Id = 31,
-                            ImageUrl = "vg.jpg",
+                            ImageUrl = "category-8.jpg",
                             Name = "Video Games"
                         },
                         new
                         {
                             Id = 32,
-                            ImageUrl = "acc.jpg",
+                            ImageUrl = "category-8.jpg",
                             Name = "Accessories"
                         },
                         new
                         {
                             Id = 33,
-                            ImageUrl = "hand.jpg",
+                            ImageUrl = "category-13.jpg",
                             Name = "Implants"
                         },
                         new

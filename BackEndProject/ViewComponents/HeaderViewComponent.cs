@@ -19,6 +19,29 @@ namespace BackEndProject.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            string username = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                username = User.Identity.Name;
+            }
+            ViewBag.UserId = "";
+            ViewBag.UserRole = "";
+            ViewBag.User = "Login";
+            if (User.Identity.IsAuthenticated)
+            {
+                AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+                ViewBag.User = user.UserName;
+                ViewBag.UserId = user.Id;
+                var roles = (await _userManager.GetRolesAsync(user));
+                foreach (var item in roles)
+                {
+                    if (item.ToLower().Contains("admin"))
+                    {
+                        ViewBag.UserRole = "admin";
+                    }
+                }
+
+            }
             Bio bio = _context.Bios.FirstOrDefault();
             return View(await Task.FromResult(bio));
         }
