@@ -31,13 +31,13 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
         //6ci deqiq
         public IActionResult Index(int page = 1, int take = 5)
         {
-            List<Category> category = _context.Categories.Skip((page - 1) * take).Take(take).ToList();
+            List<Category> category = _context.Categories.Where(c=>c.ParentId==null).Skip((page - 1) * take).Take(take).ToList();
             PaginationVM<Category> paginationVM = new PaginationVM<Category>(category, PageCount(take), page);
             return View(paginationVM);
         }
         private int PageCount(int take)
         {
-            List<Category> categories = _context.Categories.ToList();
+            List<Category> categories = _context.Categories.Where(c => c.ParentId == null).ToList();
             return (int)Math.Ceiling((decimal)categories.Count() / take);
         }
 

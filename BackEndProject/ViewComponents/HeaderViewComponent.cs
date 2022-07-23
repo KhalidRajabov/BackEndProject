@@ -1,5 +1,6 @@
 ﻿using BackEndProject.DAL;
 using BackEndProject.Models;
+using BackEndProject.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -42,8 +43,10 @@ namespace BackEndProject.ViewComponents
                 }
 
             }
-            Bio bio = _context.Bios.FirstOrDefault();
-            return View(await Task.FromResult(bio));
+            HeaderComponentVM hdVM = new HeaderComponentVM();
+            hdVM.Bio = _context.Bios.FirstOrDefault();
+            hdVM.Categories = _context.Categories.Where(c => c.ParentId == null).ToList();
+            return View(await Task.FromResult(hdVM));
         }
     }
 }

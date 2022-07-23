@@ -1,11 +1,11 @@
-﻿@model Bio
+﻿@model HeaderComponentVM
 <header class="header-area">
         <div class="desktop-nav d-none d-lg-block">
             <div class="header-nav">
                 <div class="container-fluid custom-container">
                     <div class="header-nav-wrapper d-flex justify-content-between">
                         <div class="header-static-nav">
-                            @Html.Raw(Model.CouponCode)
+                            @Html.Raw(Model.Bio.CouponCode)
                         </div>
                         <div class="header-menu-nav">
                             <ul class="menu-nav">
@@ -69,7 +69,7 @@
                             <div class="header-logo-contact d-flex  ">
                                 <div class="desktop-logo">
                                     <a href="index.html">
-                                        <img src="~/images/@Model.Logo" alt="Logo">
+                                        <img src="~/images/@Model.Bio.Logo" alt="Logo">
                                     </a>
                                 </div> <!-- desktop logo -->
                             </div>
@@ -80,7 +80,7 @@
                                     <i class="icon ion-ios-telephone-outline"></i>
                                     <div class="phone media-body">
                                         <p>24/7 Support</p>
-                                        <a href="tel:+@Model.SupportNumber">+@Model.SupportNumber</a>
+                                        <a href="tel:+@Model.Bio.SupportNumber">+@Model.Bio.SupportNumber</a>
                                     </div>
                                 </div>
                                 <div class="header-search media-body">
@@ -339,17 +339,11 @@
                                             </li>
                                         </ul> <!-- sub menu -->
                                     </li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Smartphone</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Game Consoles</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Mp3 & headphone</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Tv & Video</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Watches</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Watches</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Washing Machine</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Camera</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Audio & Theater</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Accessories</a></li>
-                                    <li class="menu-item"><a href="shop-left-sidebar.html">Games & Consoles</a></li>
+                                   
+                                   @foreach (var item in Model.Categories)
+                                  {
+                                       <li class="menu-item"><a href="shop-left-sidebar.html">@item.Name</a></li>
+                                  }
                                 </ul> <!-- menu content -->
                             </div> <!-- header menu vertical -->
                         </div>

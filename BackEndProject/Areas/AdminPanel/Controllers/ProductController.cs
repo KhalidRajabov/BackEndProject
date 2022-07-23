@@ -55,6 +55,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
         public IActionResult Create()
         {
             ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
+            ViewBag.Brands = new SelectList(_context.Brands.ToList(), "Id", "Name");
             return View();
         }
         [HttpPost]
@@ -62,6 +63,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
         public IActionResult Create(Product product)
         {
             ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
+            ViewBag.Brands = new SelectList(_context.Brands.ToList(), "Id", "Name");
             if (product.Photo == null)
             {
                 ModelState.AddModelError("Photo", "Do not leave it empty");
@@ -90,6 +92,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             {
                 Price = product.Price,
                 Name = product.Name,
+                BrandId=product.BrandId,
                 CategoryId = product.CategoryId,
                 Count = product.Count,
                 ImageUrl = product.Photo.SaveImage(_env, "images")

@@ -20,8 +20,8 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
         }
         public IActionResult Index()
         {
-            List<Brand> category = _context.Brands.ToList();
-            return View(category);
+            List<Brand> brands = _context.Brands.ToList();
+            return View(brands);
         }
 
         public IActionResult Create()

@@ -390,6 +390,23 @@ namespace BackEndProject.DAL
                     CardsImageUrl = "payment.png"
                 }
                 );
+            builder.Entity<Brand>().HasData(
+                new Brand
+                {
+                    Id= 1,
+                    Name = "Sony",
+                },
+                new Brand
+                {
+                    Id=2,
+                    Name="Samsung"
+                },
+                new Brand
+                {
+                    Id=3,
+                    Name = "Apple"
+                }
+                );
 
                 
         }

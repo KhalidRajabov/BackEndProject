@@ -25,6 +25,7 @@ namespace BackEndProject.Controllers
             HomeVM homeVM = new HomeVM();
             homeVM.Sliders = _context.Sliders.ToList();
             homeVM.Categories = _context.Categories.Where(c=>c.ParentId==null).ToList();
+            homeVM.Products = _context.Products.ToList();
             return View(homeVM);
         }
 
