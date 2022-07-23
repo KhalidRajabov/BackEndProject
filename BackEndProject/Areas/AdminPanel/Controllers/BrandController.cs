@@ -48,5 +48,14 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            Brand brands = await _context.Brands.FindAsync(id);
+            if (brands == null) return NotFound();
+            _context.Brands.Remove(brands);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("index");
+        }
     }
 }

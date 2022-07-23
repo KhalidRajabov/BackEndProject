@@ -107,6 +107,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
 
         public async Task<IActionResult> Update(int? id)
         {
+            ViewBag.Brands = new SelectList(_context.Brands.ToList(), "Id", "Name");
             ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
             if (id == null) return NotFound();
             Product product = await _context.Products.FindAsync(id);
