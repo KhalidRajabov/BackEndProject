@@ -157,6 +157,9 @@ namespace BackEndProject.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -174,18 +177,49 @@ namespace BackEndProject.Migrations
                         new
                         {
                             Id = 1,
+                            ImageUrl = "brand-1.jpg",
                             IsDeleted = false,
-                            Name = "Sony"
+                            Name = "David Smith"
                         },
                         new
                         {
                             Id = 2,
+                            ImageUrl = "brand-2.jpg",
                             IsDeleted = false,
-                            Name = "Samsung"
+                            Name = "Avant Garde"
                         },
                         new
                         {
                             Id = 3,
+                            ImageUrl = "brand-3.jpg",
+                            IsDeleted = false,
+                            Name = "Climb The Mountain"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageUrl = "brand-4.jpg",
+                            IsDeleted = false,
+                            Name = "Ostrich Cafe"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImageUrl = "brand-5.jpg",
+                            IsDeleted = false,
+                            Name = "Golden"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImageUrl = "brand-6.jpg",
+                            IsDeleted = false,
+                            Name = "Norcold"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImageUrl = "brand-7.png",
                             IsDeleted = false,
                             Name = "Apple"
                         });
@@ -652,6 +686,12 @@ namespace BackEndProject.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("DiscountPercent")
+                        .HasColumnType("float");
+
                     b.Property<double>("DiscountPrice")
                         .HasColumnType("float");
 
@@ -661,10 +701,16 @@ namespace BackEndProject.Migrations
                     b.Property<bool>("InStock")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAvailability")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsFeatured")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSpecial")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastUpdatedAt")
@@ -679,6 +725,9 @@ namespace BackEndProject.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<double>("TaxPercent")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
@@ -686,6 +735,29 @@ namespace BackEndProject.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 22,
+                            Bestseller = true,
+                            BrandId = 2,
+                            CategoryId = 22,
+                            Count = 20,
+                            CreatedTime = new DateTime(2022, 7, 23, 0, 46, 20, 31, DateTimeKind.Unspecified).AddTicks(1359),
+                            Description = "This Model Is Special",
+                            DiscountPercent = 10.0,
+                            DiscountPrice = 1800.0,
+                            InStock = true,
+                            IsAvailability = true,
+                            IsDeleted = false,
+                            IsFeatured = true,
+                            IsSpecial = true,
+                            Name = "Macbook Pro",
+                            NewArrival = true,
+                            Price = 2000.0,
+                            TaxPercent = 10.0
+                        });
                 });
 
             modelBuilder.Entity("BackEndProject.Models.ProductImage", b =>
@@ -709,6 +781,76 @@ namespace BackEndProject.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImageUrl = "product-1.jpg",
+                            IsMain = true,
+                            ProductId = 22
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImageUrl = "product-2.jpg",
+                            IsMain = false,
+                            ProductId = 22
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImageUrl = "product-3.jpg",
+                            IsMain = false,
+                            ProductId = 22
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageUrl = "product-4.jpg",
+                            IsMain = false,
+                            ProductId = 22
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImageUrl = "product-5.jpg",
+                            IsMain = false,
+                            ProductId = 22
+                        });
+                });
+
+            modelBuilder.Entity("BackEndProject.Models.ProductTags", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("TagProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ProductId = 22,
+                            TagId = 6
+                        });
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Slider", b =>
@@ -735,31 +877,6 @@ namespace BackEndProject.Migrations
                     b.ToTable("Sliders");
                 });
 
-            modelBuilder.Entity("BackEndProject.Models.TagProducts", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("TagProducts");
-                });
-
             modelBuilder.Entity("BackEndProject.Models.Tags", b =>
                 {
                     b.Property<int>("Id")
@@ -773,6 +890,38 @@ namespace BackEndProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Camera"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Drone"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Music"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Memory"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Gaming"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Premium"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -959,10 +1108,10 @@ namespace BackEndProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BackEndProject.Models.TagProducts", b =>
+            modelBuilder.Entity("BackEndProject.Models.ProductTags", b =>
                 {
                     b.HasOne("BackEndProject.Models.Product", "Product")
-                        .WithMany("TagProducts")
+                        .WithMany("ProductTags")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

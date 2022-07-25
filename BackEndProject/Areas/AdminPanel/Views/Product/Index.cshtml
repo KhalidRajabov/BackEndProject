@@ -34,7 +34,13 @@
                            <tr>
                           <td>@count</td>
                           <td> 
-                             <img style="border-radius:0; width:100px; height:100px" src="~/images/@item.ImageUrl"/> 
+                                    @foreach (var prodImg in item.ProductImages)
+                                           {
+                                               if (prodImg.IsMain)
+                                               {
+                                                <img style="border-radius:0; width:100px; height:100px" src="~/images/product/@item.ImageUrl"/> 
+                                               }
+                                           }
                               </td>
                           <td>@item.Name</td>
                           <td> $@item.Price</td>

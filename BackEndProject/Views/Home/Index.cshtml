@@ -108,7 +108,13 @@
                                    <div class="single-product mt-30">
                                     <div class="product-image">
                                         <a href="single-product.html">
-                                            <img class="first-image" width="200px" height="200px" src="~/images/@item.ImageUrl" alt="product">
+                                               @foreach (var prodImg in item.ProductImages)
+                                           {
+                                               if (prodImg.IsMain)
+                                               {
+                                                 <img class="first-image" src="~/images/product/@prodImg.ImageUrl" alt="product">
+                                               }
+                                           }
                                             <img class="second-image" src="~/images/product/product-2.jpg" alt="product">
                                         </a>
                                         <ul class="product-meta">

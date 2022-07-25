@@ -6,6 +6,6 @@ namespace BackEndProject.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<TagProducts> TagProducts{ get; set; }
+        public List<ProductTags> TagProducts{ get; set; }
     }
 }

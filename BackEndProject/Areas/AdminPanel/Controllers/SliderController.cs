@@ -65,7 +65,10 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
 
             Slider newslider = new Slider
             {
-                ImageUrl = slider.Photo.SaveImage(_env, "img")
+                ImageUrl = slider.Photo.SaveImage(_env, "images"),
+                Subtitle = slider.Subtitle,
+                MainTitle = slider.MainTitle,
+                Description = slider.Description
             };
 
             _context.Sliders.Add(newslider);

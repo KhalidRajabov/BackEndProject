@@ -10,11 +10,13 @@ namespace BackEndProject.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
+        public string Description { get; set; }
+        public double DiscountPercent { get; set; }
         public double DiscountPrice { get; set; }
-        public string ImageUrl { get; set; }
+        public double TaxPercent { get; set; }
         public int Count { get; set; }
-        [NotMapped]
-        public IFormFile Photo { get; set; }
+        public bool IsAvailability { get; set; }
+        public bool IsSpecial { get; set; }
         public bool IsFeatured { get; set; }
         public bool Bestseller { get; set; }
         public bool NewArrival { get; set; }
@@ -35,7 +37,7 @@ namespace BackEndProject.Models
 
         
         
-        public List<TagProducts> TagProducts { get; set; }
+        public List<ProductTags> ProductTags { get; set; }
 
         public List<ProductImage> ProductImages { get; set; }
 

@@ -19,7 +19,7 @@ namespace BackEndProject.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Slider> Sliders { get; set; }
-        public DbSet<TagProducts> TagProducts { get; set; }
+        public DbSet<ProductTags> TagProducts { get; set; }
         public DbSet<Tags> Tags { get; set; }
 
 
@@ -390,25 +390,148 @@ namespace BackEndProject.DAL
                     CardsImageUrl = "payment.png"
                 }
                 );
-            builder.Entity<Brand>().HasData(
-                new Brand
-                {
-                    Id= 1,
-                    Name = "Sony",
-                },
-                new Brand
-                {
-                    Id=2,
-                    Name="Samsung"
-                },
-                new Brand
-                {
-                    Id=3,
-                    Name = "Apple"
-                }
-                );
 
-                
+            builder.Entity<Product>().HasData(
+                 new Product
+                 {
+                     Id = 22,
+                     Name = "Macbook Pro",
+                     NewArrival = true,
+                     Bestseller = true,
+                     BrandId = 2,
+                     CategoryId = 22,
+                     Count = 20,
+                     Price = 2000,
+                     DiscountPercent = 10,
+                     DiscountPrice = 1800,
+                     TaxPercent = 10,
+                     InStock = true,
+                     IsFeatured = true,
+                     IsDeleted = false,
+                     IsAvailability = true,
+                     IsSpecial = true,
+                     Description = "This Model Is Special",
+                     CreatedTime = System.DateTime.ParseExact("Saturday, 23 July 2022 00:46:20.0311359", "dddd, dd MMMM yyyy HH:mm:ss.fffffff", null)
+                 });
+            builder.Entity<Tags>().HasData(
+                 new Tags
+                 {
+                     Id = 1,
+                     Name = "Camera"
+                 },
+                 new Tags
+                 {
+                     Id = 2,
+                     Name = "Drone"
+                 },
+                 new Tags
+                 {
+                     Id = 3,
+                     Name = "Music"
+                 },
+                 new Tags
+                 {
+                     Id = 4,
+                     Name = "Memory"
+                 },
+                 new Tags
+                 {
+                     Id = 5,
+                     Name = "Gaming"
+                 },
+                 new Tags
+                 {
+                     Id = 6,
+                     Name = "Premium"
+                 });
+            builder.Entity<Brand>().HasData(
+               new Brand
+               {
+                   Id = 1,
+                   Name = "David Smith",
+                   ImageUrl = "brand-1.jpg"
+               },
+               new Brand
+               {
+                   Id = 2,
+                   Name = "Avant Garde",
+                   ImageUrl = "brand-2.jpg",
+               },
+               new Brand
+               {
+                   Id = 3,
+                   Name = "Climb The Mountain",
+                   ImageUrl = "brand-3.jpg",
+               },
+               new Brand
+               {
+                   Id = 4,
+                   Name = "Ostrich Cafe",
+                   ImageUrl = "brand-4.jpg",
+               },
+               new Brand
+               {
+                   Id = 5,
+                   Name = "Golden",
+                   ImageUrl = "brand-5.jpg",
+               },
+               new Brand
+               {
+                   Id = 6,
+                   Name = "Norcold",
+                   ImageUrl = "brand-6.jpg"
+               },
+               new Brand
+               {
+                   Id = 7,
+                   Name = "Apple",
+                   ImageUrl = "brand-7.png"
+               }
+          );
+               builder.Entity<ProductImage>().HasData(
+               new ProductImage
+               {
+                   Id = 1,
+                   ProductId = 22,
+                   ImageUrl = "product-1.jpg",
+                   IsMain = true,
+               },
+               new ProductImage
+               {
+                   Id = 2,
+                   ProductId = 22,
+                   ImageUrl = "product-2.jpg",
+                   IsMain = false,
+               },
+               new ProductImage
+               {
+                   Id = 3,
+                   ProductId = 22,
+                   ImageUrl = "product-3.jpg",
+                   IsMain = false,
+               },
+               new ProductImage
+               {
+                   Id = 4,
+                   ProductId = 22,
+                   ImageUrl = "product-4.jpg",
+                   IsMain = false,
+               },
+               new ProductImage
+               {
+                   Id = 5,
+                   ProductId = 22,
+                   ImageUrl = "product-5.jpg",
+                   IsMain = false,
+               } );
+            builder.Entity<ProductTags>().HasData(
+              new ProductTags
+              {
+                  Id = 1,
+                  ProductId = 22,
+                  TagId = 6,
+              }
+         );
         }
     }
 }
