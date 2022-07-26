@@ -59,7 +59,7 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
                 return View();
             }
 
-            bool isValid = _context.Brands.Any(c => c.Name.ToLower() == brand.Name.ToLower());
+            bool isValid = _context.Brands.Where(b=>b.IsDeleted!=true).Any(c => c.Name.ToLower() == brand.Name.ToLower());
             if (isValid)
             {
                 ModelState.AddModelError("Name", "This category name already exists");
