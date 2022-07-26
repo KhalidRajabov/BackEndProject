@@ -5,6 +5,8 @@ using BackEndProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,112 +44,148 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
         }
 
         public IActionResult Create()
-            {
-                return View();
-            }
+        {
+            return View();
+        }
 
-            [HttpPost]
-            [ValidateAntiForgeryToken]
-            public async Task<IActionResult> Create(Category category)
-            {
-            if (category.Images == null)
-            {
-                ModelState.AddModelError("Photo", "Do not leave it empty");
-                return View();
-            }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Category category)
+        {
+        if (category.Images == null)
+        {
+            ModelState.AddModelError("Photo", "Do not leave it empty");
+            return View();
+        }
 
-            if (!category.Images.IsImage())
+        if (!category.Images.IsImage())
+        {
+            ModelState.AddModelError("Photo", "Do not leave it empty");
+            return View();
+        }
+        if (category.Images.ValidSize(10000))
+        {
+            ModelState.AddModelError("Photo", "Image size can not be large");
+            return View();
+        }
+        if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("Photo", "Do not leave it empty");
                 return View();
             }
-            if (category.Images.ValidSize(10000))
+        
+
+            bool isValid = _context.Categories.Any(c => c.Name.ToLower() == category.Name.ToLower());
+            if (isValid)
             {
-                ModelState.AddModelError("Photo", "Image size can not be large");
+                ModelState.AddModelError("Name", "This category name already exists");
                 return View();
             }
+        Category newcategory = new Category
+        {
+            Name = category.Name,
+            ImageUrl = category.Images.SaveImage(_env, "images")
+        };
+            await _context.Categories.AddAsync(newcategory);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult CreateSubCategory()
+        {
+            ViewBag.MainCategories = new SelectList(_context.Categories.Where(c=>c.ParentId==null).ToList(), "Id", "Name");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateSubCategory(Category subcategory)
+        {
+            ViewBag.MainCategories = new SelectList(_context.Categories.Where(c => c.ParentId == null).ToList(), "Id", "Name");
             if (!ModelState.IsValid)
-                {
-                    return View();
-                }
-            
+            {
+                return View();
+            }
 
-                bool isValid = _context.Categories.Any(c => c.Name.ToLower() == category.Name.ToLower());
-                if (isValid)
+            if (subcategory.ParentId==null)
+            {
+                ModelState.AddModelError("ParentId", "Select a category");
+                return View();
+            }
+            bool isValid = _context.Categories.Where(c=>c.ParentId!=null).Any(c => c.Name.ToLower() == subcategory.Name.ToLower());
+            if (isValid)
+            {
+                ModelState.AddModelError("Name", "This category name already exists");
+                return View();
+            }
+            Category newsubcategory = new Category
+            {
+                Name = subcategory.Name,
+                ParentId = subcategory.ParentId
+            };
+            await _context.Categories.AddAsync(newsubcategory);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null) return NotFound();
+            Category category = await _context.Categories.FindAsync(id);
+            if (category == null) return NotFound();
+            return View(category);
+        }
+
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            Category category = await _context.Categories.FindAsync(id);
+            if (category == null) return NotFound();
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteCategory(int? id)
+        {
+            if (id == null) return NotFound();
+            Category category = await _context.Categories.FindAsync(id);
+            if (category == null) return NotFound();
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("index");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int? id, Category category)
+        {
+            if (!ModelState.IsValid) return View();
+            if (id == null) return NotFound();
+            Category dbCategory = await _context.Categories.FindAsync(id);
+            if (dbCategory == null) return NotFound();
+            Category checkCategory = _context.Categories.FirstOrDefault(c => c.Name.ToLower() == category.Name.ToLower());
+            if (checkCategory != null)
+            {
+                if (dbCategory.Name != checkCategory.Name)
                 {
                     ModelState.AddModelError("Name", "This category name already exists");
                     return View();
                 }
-            Category newcategory = new Category
-            {
-                Name = category.Name,
-                ImageUrl = category.Images.SaveImage(_env, "images")
-            };
-                await _context.Categories.AddAsync(newcategory);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
             }
+            dbCategory.Name = category.Name;
+            await _context.SaveChangesAsync();
 
-            public async Task<IActionResult> Update(int? id)
-            {
-                if (id == null) return NotFound();
-                Category category = await _context.Categories.FindAsync(id);
-                if (category == null) return NotFound();
-                return View(category);
-            }
+            return RedirectToAction("index");
+        }
 
-
-            public async Task<IActionResult> Delete(int? id)
-            {
-                if (id == null) return NotFound();
-                Category category = await _context.Categories.FindAsync(id);
-                if (category == null) return NotFound();
-                return View(category);
-            }
-
-            [HttpPost]
-            [ValidateAntiForgeryToken]
-            [ActionName("Delete")]
-            public async Task<IActionResult> DeleteCategory(int? id)
-            {
-                if (id == null) return NotFound();
-                Category category = await _context.Categories.FindAsync(id);
-                if (category == null) return NotFound();
-                _context.Categories.Remove(category);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("index");
-            }
-
-
-            [HttpPost]
-            [ValidateAntiForgeryToken]
-            public async Task<IActionResult> Update(int? id, Category category)
-            {
-                if (!ModelState.IsValid) return View();
-                if (id == null) return NotFound();
-                Category dbCategory = await _context.Categories.FindAsync(id);
-                if (dbCategory == null) return NotFound();
-                Category checkCategory = _context.Categories.FirstOrDefault(c => c.Name.ToLower() == category.Name.ToLower());
-                if (checkCategory != null)
-                {
-                    if (dbCategory.Name != checkCategory.Name)
-                    {
-                        ModelState.AddModelError("Name", "This category name already exists");
-                        return View();
-                    }
-                }
-                dbCategory.Name = category.Name;
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("index");
-            }
-
-            public async Task<IActionResult> Detail(int? id)
-            {
-                if (id == null) return NotFound();
-                Category dbCategory = await _context.Categories.FindAsync(id);
-                if (dbCategory == null) return NotFound();
-                return View(dbCategory);
-            }
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null) return NotFound();
+            Category dbCategory = await _context.Categories.FindAsync(id);
+            if (dbCategory == null) return NotFound();
+            return View(dbCategory);
+        }
         }
 }

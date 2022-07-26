@@ -12,6 +12,7 @@
                 <div class="card-body">
                   <p class="card-description">
                     <a class="btn btn-info fs-5"  asp-action="create">Add Category</a>
+                    <a class="btn btn-success fs-5"  asp-action="createsubcategory">Add Subcategory</a>
                   </p>
                   <div class="table-responsive">
                     <table class="table table-hover">
@@ -29,7 +30,7 @@
                             count++;
                            <tr>
                           <td>@count</td>
-                          <td><img width="150px" height="150px" src="~/images/@item.ImageUrl"/></td>
+                          <td><img style="border-radius:0; width:100px; height:75px" src="~/images/@item.ImageUrl"/></td>
                           <td>@item.Name</td>
                           <td>
                               <a class="btn btn-warning fs-5"  asp-action="update" asp-route-id="@item.Id"><i  class="mdi mdi-key-plus"></i></a>
