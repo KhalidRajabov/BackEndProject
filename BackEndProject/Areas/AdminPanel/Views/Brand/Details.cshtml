@@ -1,0 +1,19 @@
+﻿@model Brand
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <div class="card col-6" >
+  <img class="card-img-top" style="width:300px" src="~/images/brand/@Model.ImageUrl" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">@Model.Name</h5>
+    <p class="card-text">Added on: @Model.CreatedTime</p>
+        @if (Model.LastUpdatedAt!=null)
+            {
+                <p class="card-text">Updated: @Model.LastUpdatedAt</p>
+            }
+    <a asp-action="index" class="btn btn-primary">Go back</a>
+  </div>
+</div>
+</div>

@@ -119,7 +119,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
 
 
 
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Product product)
         {
@@ -166,7 +166,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             return RedirectToAction("index");
         }
 
-
+*/
 
 
         public async Task<IActionResult> Delete(int? id)

@@ -1,7 +1,6 @@
 ﻿@model Brand
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Update";
 }
 
 <div class="row">
@@ -10,20 +9,26 @@
      <div class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Create Table</h4>
+                  <h4 class="card-title">Create Product</h4>
+
+                  <div class="col-md-4">
+                  <img src="~/images/brand/@Model.ImageUrl" class="img-fluid rounded-start">
+                  </div>
+
                   <form class="forms-sample" method="POST" enctype="multipart/form-data">
 
                     <div class="form-group">
                       <label asp-for="Name" ></label>
-                      <input asp-for="Name" class="form-control" maxlength="1000"  placeholder="Name">
+                      <input asp-for="Name" class="form-control" placeholder="Name">
                       <span style="color: red;" asp-validation-for="Name"></span>
                     </div>
-
-                        <div class="form-group">
+                    
+                    <div class="form-group">
                       <label asp-for="Photo" ></label>
                       <input asp-for="Photo" class="form-control">
                       <span style="color: red;" asp-validation-for="Photo"></span>
-                    </div>                    
+                    </div>
+
 
                     <button type="submit" class="btn btn-success me-2">Save</button>
                     <a asp-action="index" class="btn btn-primary"> Go Back</a>
@@ -35,19 +40,6 @@
 
 </div>
 
-
 @section JqueryValidationScript{
     <partial name="_Validation"/>
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-
-     <script>
-                        ClassicEditor
-                                .create( document.querySelector( '#Desc' ) )
-                                .then( editor => {
-                                        console.log( editor );
-                                } )
-                                .catch( error => {
-                                        console.error( error );
-                                } );
-                </script>
 }

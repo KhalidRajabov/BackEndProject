@@ -23,6 +23,10 @@ namespace BackEndProject.Models
         public bool InStock { get; set; }
         public bool IsDeleted { get; set; }
 
+        [NotMapped]
+        public IFormFile Photo { get; set; }
+        public string ImageUrl { get; set; }
+
         public Nullable<DateTime> CreatedTime { get; set; }
         public Nullable<DateTime> DeletedAt { get; set; }
         public Nullable<DateTime> LastUpdatedAt { get; set; }
