@@ -13,6 +13,12 @@
     </div>
                     <div class="card-body">
                       <h4 class="card-title">@Model.Name</h4>
+                        <h5 class="card-text">Create time: @Model.CreatedTime</h5>
+                        
+                        @if (Model.LastUpdatedAt!=null)
+                {
+                    <h5 class="card-text">Update time:@Model.LastUpdatedAt</h5>
+                }    
                         
                     </div>
                 <a style="align-self:center; margin-bottom: 40px; margin-top: 40px;" asp-controller="category" asp-action="index" class="btn btn-info w-25">Go Back</a>

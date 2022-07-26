@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,7 +34,7 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
         //6ci deqiq
         public IActionResult Index(int page = 1, int take = 5)
         {
-            List<Category> category = _context.Categories.Where(c=>c.ParentId==null).Skip((page - 1) * take).Take(take).ToList();
+            List<Category> category = _context.Categories.Where(c=>c.ParentId==null&&c.IsDeleted==null).Skip((page - 1) * take).Take(take).ToList();
             PaginationVM<Category> paginationVM = new PaginationVM<Category>(category, PageCount(take), page);
             return View(paginationVM);
         }
@@ -69,25 +70,26 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             return View();
         }
         if (!ModelState.IsValid)
-            {
-                return View();
-            }
+        {
+            return View();
+        }
         
 
-            bool isValid = _context.Categories.Any(c => c.Name.ToLower() == category.Name.ToLower());
-            if (isValid)
-            {
-                ModelState.AddModelError("Name", "This category name already exists");
-                return View();
-            }
+        bool isValid = await _context.Categories.AnyAsync(c => c.Name.ToLower() == category.Name.ToLower());
+        if (isValid)
+        {
+            ModelState.AddModelError("Name", "This category name already exists");
+            return View();
+        }
         Category newcategory = new Category
         {
             Name = category.Name,
-            ImageUrl = category.Images.SaveImage(_env, "images")
+            ImageUrl = category.Images.SaveImage(_env, "images"),
+            CreatedTime = DateTime.Now
         };
-            await _context.Categories.AddAsync(newcategory);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+        await _context.AddAsync(newcategory);
+        await _context.SaveChangesAsync();
+        return RedirectToAction("Index");
         }
 
         public IActionResult CreateSubCategory()
@@ -126,6 +128,22 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+     
+        public async Task<IActionResult> DeleteCategory(int? id)
+        {
+            if (id == null) return NotFound();
+            Category category = await _context.Categories.FindAsync(id);
+            if (category == null) return NotFound();
+            category.IsDeleted=true;
+            category.DeletedAt = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("index");
+        }
+
+
+
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null) return NotFound();
@@ -133,29 +151,6 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             if (category == null) return NotFound();
             return View(category);
         }
-
-
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null) return NotFound();
-            Category category = await _context.Categories.FindAsync(id);
-            if (category == null) return NotFound();
-            return View(category);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ActionName("Delete")]
-        public async Task<IActionResult> DeleteCategory(int? id)
-        {
-            if (id == null) return NotFound();
-            Category category = await _context.Categories.FindAsync(id);
-            if (category == null) return NotFound();
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("index");
-        }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -174,9 +169,31 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
                     return View();
                 }
             }
+            if (category.Images == null)
+            {
+                dbCategory.ImageUrl = dbCategory.ImageUrl;
+            }
+            else
+            {
+                if (!category.Images.IsImage())
+                {
+                    ModelState.AddModelError("Photo", "Choose images only");
+                    return View();
+                }
+                if (category.Images.ValidSize(20000))
+                {
+                    ModelState.AddModelError("Photo", "Image size can not be large");
+                    return View();
+                }
+                string oldImg = dbCategory.ImageUrl;
+                string path = Path.Combine(_env.WebRootPath, "images", oldImg);
+                Helper.Helper.DeleteImage(path);
+                dbCategory.ImageUrl = category.Images.SaveImage(_env, "images");
+            }
             dbCategory.Name = category.Name;
+            dbCategory.LastUpdatedAt = DateTime.Now;
+       
             await _context.SaveChangesAsync();
-
             return RedirectToAction("index");
         }
 
