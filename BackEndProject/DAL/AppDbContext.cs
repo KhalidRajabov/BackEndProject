@@ -30,349 +30,185 @@ namespace BackEndProject.DAL
                 
                 new Category
                 {
-                    Id=21,
+                    Id=1,
                     Name="Computers",
-                    ImageUrl= "category-6.jpg"
+                    ImageUrl= "category-1.jpg"
                 },
                 new Category
                 {
-                    Id = 22,
+                    Id = 2,
                     Name = "Monitors",
                     ImageUrl = "category-2.jpg"
                 }, 
                 new Category
                 {
-                    Id = 23,
+                    Id = 3,
                     Name = "Watches",
                     ImageUrl = "category-8.jpg"
                 },
                 new Category
                 {
-                    Id = 24,
+                    Id = 4,
                     Name = "Notebooks",
                     ImageUrl = "category-1.jpg"
                 },
                 new Category
                 {
-                    Id = 25,
+                    Id = 5,
                     Name = "Game Consoles",
                     ImageUrl = "category-4.jpg"
                 },
                 new Category
                 {
-                    Id = 26,
+                    Id = 6,
                     Name = "Washing Machine",
                     ImageUrl = "category-9.jpg"
                 },
                 new Category
                 {
-                    Id = 27,
+                    Id = 7,
                     Name = "Batteries",
                     ImageUrl = "category-12.jpg"
                 },
                 new Category
                 {
-                    Id = 28,
+                    Id = 8,
                     Name = "Cameras",
                     ImageUrl = "category-10.jpg"
                 },
                 new Category
                 {
-                    Id = 29,
+                    Id = 9,
                     Name = "Printers",
                     ImageUrl = "category-7.jpg"
                 },
                 new Category
                 {
-                    Id = 31,
+                    Id = 10,
                     Name = "Video Games",
                     ImageUrl = "vg.jpg"
                 },
                 new Category
                 {
-                    Id = 32,
-                    Name = "Accessories",
-                    ImageUrl = "acc.jpg"
-                },
-                new Category
-                {
-                    Id = 33,
-                    Name = "Implants",
-                    ImageUrl = "hand.jpg"
-                },
-                new Category
-                {
-                    Id = 34,
-                    Name = "Gerenade Laucnhers",
-                    ImageUrl = "category-14.jpg"
-                },
-                new Category
-                {
-                    Id = 35,
-                    Name = "Pets",
-                    ImageUrl = "category-15.jpg"
-                },
-                new Category
-                {
-                    Id = 36,
-                    Name = "Nuclear Weapons",
-                    ImageUrl = "category-16.jpg"
-                },
-                new Category
-                {
-                    Id = 37,
-                    Name = "SuperCars",
-                    ImageUrl = "category-17.jpg"
-                },
-                new Category
-                {
-                    Id = 38,
-                    Name = "Space Ships",
-                    ImageUrl = "category-18.jpg"
-                },
-                new Category
-                {
-                    Id = 39,
-                    Name = "Tanks",
-                    ImageUrl = "category-19.jpg"
-                },
-                new Category
-                {
-                    Id = 40,
-                    Name = "Automatic Assault Rifles",
-                    ImageUrl = "category-20.jpg"
-                },
-                new Category
-                {
-                    Id = 41,
+                    Id = 11,
                     Name = "Nasa Super Computers",
-                    ParentId = 21
+                    ParentId = 1
                 },
                 new Category
                 {
-                    Id = 42,
+                    Id = 12,
                     Name = "Office Computers",
-                    ParentId = 21
+                    ParentId = 1
                 }
                 ,
                 new Category
                 {
-                    Id = 43,
+                    Id = 13,
                     Name = "Gaming Monitor",
-                    ParentId = 22
+                    ParentId = 2
                 },
                 new Category
                 {
-                    Id = 44,
+                    Id = 14,
                     Name = "Standart Monitor",
-                    ParentId = 22
+                    ParentId = 2
                 },
                 new Category
                 {
-                    Id = 45,
+                    Id = 15,
                     Name = "Digital Watches",
-                    ParentId = 23
+                    ParentId = 3
                 },
                 new Category
                 {
-                    Id = 46,
+                    Id = 16,
                     Name = "Analog Watches",
-                    ParentId = 23
+                    ParentId = 3
                 },
                 new Category
                 {
-                    Id = 47,
+                    Id = 17,
                     Name = "Gaming Notebook",
-                    ParentId = 24
+                    ParentId = 4
                 },
                 new Category
                 {
-                    Id = 48,
+                    Id = 18,
                     Name = "Word Notebook",
-                    ParentId = 24
+                    ParentId = 4
                 },
                 new Category
                 {
-                    Id = 49,
+                    Id = 19,
                     Name = "Wired Oldschool",
-                    ParentId = 25
+                    ParentId = 5
                 },
                 new Category
                 {
-                    Id = 50,
+                    Id = 20,
                     Name = "Next Generation",
-                    ParentId = 25
+                    ParentId = 5
                 },
                 new Category
                 {
-                    Id = 51,
+                    Id = 21,
                     Name = "Large Machine",
-                    ParentId = 26
+                    ParentId = 6
                 },
                 new Category
                 {
-                    Id = 52,
+                    Id = 22,
                     Name = "Standart",
-                    ParentId = 26
+                    ParentId = 6
                 },
                 new Category
                 {
-                    Id = 53,
+                    Id = 23,
                     Name = "Power Banks",
-                    ParentId = 27
+                    ParentId = 7
                 },
                 new Category
                 {
-                    Id = 54,
+                    Id = 24,
                     Name = "Adapters",
-                    ParentId = 27
+                    ParentId = 7
                 },
                 new Category
                 {
-                    Id = 55,
+                    Id = 25,
                     Name = "Telescopic Cameras",
-                    ParentId = 28
+                    ParentId = 8
                 },
                 new Category
                 {
-                    Id = 56,
+                    Id = 26,
                     Name = "Digital Cameras",
-                    ParentId = 28
+                    ParentId = 8
                 },
                 new Category
                 {
-                    Id = 57,
+                    Id = 27,
                     Name = "Laser Printers",
-                    ParentId = 29
+                    ParentId = 9
                 },
                 new Category
                 {
-                    Id = 58,
+                    Id = 28,
                     Name = "Inky Printers",
-                    ParentId = 29
+                    ParentId = 9
                 },
                 new Category
                 {
-                    Id = 59,
+                    Id = 29,
                     Name = "Bracalet",
-                    ParentId = 32
+                    ParentId = 10
                 },
                 new Category
                 {
-                    Id = 60,
+                    Id = 30,
                     Name = "Headsets",
-                    ParentId = 32
-                },
-                new Category
-                {
-                    Id = 61,
-                    Name = "Pc Video Games",
-                    ParentId = 31
-                },
-                new Category
-                {
-                    Id = 62,
-                    Name = "Console Video Games",
-                    ParentId = 31
-                },
-                new Category
-                {
-                    Id = 63,
-                    Name = "Robotic Heart",
-                    ParentId = 33
-                },
-                new Category
-                {
-                    Id = 64,
-                    Name = "Robotic Eye",
-                    ParentId = 33
-                },
-                new Category
-                {
-                    Id = 65,
-                    Name = "Electronic",
-                    ParentId = 34
-                },
-                new Category
-                {
-                    Id = 66,
-                    Name = "Close Range",
-                    ParentId = 34
-                },
-                new Category
-                {
-                    Id = 67,
-                    Name = "Cats",
-                    ParentId = 35
-                },
-                new Category
-                {
-                    Id = 68,
-                    Name = "Dogs",
-                    ParentId = 35
-                },
-                new Category
-                {
-                    Id = 69,
-                    Name = "Hydrogen Bombs",
-                    ParentId = 36
-                },
-                new Category
-                {
-                    Id = 70,
-                    Name = "Electro Magnetic Bombs",
-                    ParentId = 36
-                },
-                new Category
-                {
-                    Id = 71,
-                    Name = "Supersports",
-                    ParentId = 37
-                },
-                new Category
-                {
-                    Id = 72,
-                    Name = "Hyper Cars",
-                    ParentId = 37
-                },
-                new Category
-                {
-                    Id = 73,
-                    Name = "Orbiter spacecraft",
-                    ParentId = 38
-                },
-                new Category
-                {
-                    Id = 74,
-                    Name = "Rover Spacecraft",
-                    ParentId = 38
-                },
-                new Category
-                {
-                    Id = 75,
-                    Name = "Heavy Tanks",
-                    ParentId = 39
-                },
-                new Category
-                {
-                    Id = 76,
-                    Name = "Artillery Tanks",
-                    ParentId = 39
-                },
-                new Category
-                {
-                    Id = 77,
-                    Name = "Close Range Rifles",
-                    ParentId = 40
-                },
-                new Category
-                {
-                    Id = 78,
-                    Name = "Long Range Rifles",
-                    ParentId = 40
+                    ParentId = 10
                 }
-
-
                 );
 
             builder.Entity<Bio>().HasData(
@@ -394,12 +230,12 @@ namespace BackEndProject.DAL
             builder.Entity<Product>().HasData(
                  new Product
                  {
-                     Id = 22,
+                     Id = 1,
                      Name = "Macbook Pro",
                      NewArrival = true,
                      Bestseller = true,
                      BrandId = 2,
-                     CategoryId = 22,
+                     CategoryId = 1,
                      Count = 20,
                      Price = 2000,
                      DiscountPercent = 10,
@@ -492,35 +328,35 @@ namespace BackEndProject.DAL
                new ProductImage
                {
                    Id = 1,
-                   ProductId = 22,
+                   ProductId = 1,
                    ImageUrl = "product-1.jpg",
                    IsMain = true,
                },
                new ProductImage
                {
                    Id = 2,
-                   ProductId = 22,
+                   ProductId = 1,
                    ImageUrl = "product-2.jpg",
                    IsMain = false,
                },
                new ProductImage
                {
                    Id = 3,
-                   ProductId = 22,
+                   ProductId = 1,
                    ImageUrl = "product-3.jpg",
                    IsMain = false,
                },
                new ProductImage
                {
                    Id = 4,
-                   ProductId = 22,
+                   ProductId = 1,
                    ImageUrl = "product-4.jpg",
                    IsMain = false,
                },
                new ProductImage
                {
                    Id = 5,
-                   ProductId = 22,
+                   ProductId = 1,
                    ImageUrl = "product-5.jpg",
                    IsMain = false,
                } );
@@ -528,10 +364,28 @@ namespace BackEndProject.DAL
               new ProductTags
               {
                   Id = 1,
-                  ProductId = 22,
+                  ProductId = 1,
                   TagId = 6,
               }
          );
+            builder.Entity<Slider>().HasData(
+                new Slider
+                {
+                    Id= 1,
+                    ImageUrl = "slider-1.jpg",
+                    Subtitle = "Save $120 when you buy",
+                    MainTitle = "<span>2020 Virtual Reality </span> Fulldive VR.",
+                    Description = "Explore and immerse in exciting 360 content with Fulldive’s all-in-one virtual reality platform"
+                },
+                new Slider
+                {
+                    Id = 2,
+                    ImageUrl = "slider-2.jpg",
+                    Subtitle = "Save $120 when you buy",
+                    MainTitle = "<span>4K HDR Smart TV 43 </span> Sony Bravia.",
+                    Description = "Explore and immerse in exciting 360 content with Fulldive’s all-in-one virtual reality platform"
+                }
+                );
         }
     }
 }

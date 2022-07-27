@@ -48,7 +48,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null) return NotFound();
-            Product dbProduct = await _context.Products.Include(c => c.Category).FirstOrDefaultAsync(c => c.Id == id);
+            Product dbProduct = await _context.Products.Include(c => c.Category).Include(pi=>pi.ProductImages).FirstOrDefaultAsync(c => c.Id == id);
             if (dbProduct == null) return NotFound();
             return View(dbProduct);
         }

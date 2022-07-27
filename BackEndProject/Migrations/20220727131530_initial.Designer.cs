@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220725151525_product_update2")]
-    partial class product_update2
+    [Migration("20220727131530_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,6 +159,9 @@ namespace BackEndProject.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -176,38 +179,51 @@ namespace BackEndProject.Migrations
                         new
                         {
                             Id = 1,
+                            ImageUrl = "brand-1.jpg",
                             IsDeleted = false,
-                            Name = "Sony"
+                            Name = "David Smith"
                         },
                         new
                         {
                             Id = 2,
+                            ImageUrl = "brand-2.jpg",
                             IsDeleted = false,
-                            Name = "Samsung"
+                            Name = "Avant Garde"
                         },
                         new
                         {
                             Id = 3,
+                            ImageUrl = "brand-3.jpg",
                             IsDeleted = false,
-                            Name = "Apple"
+                            Name = "Climb The Mountain"
                         },
                         new
                         {
                             Id = 4,
+                            ImageUrl = "brand-4.jpg",
                             IsDeleted = false,
-                            Name = "Panzer"
+                            Name = "Ostrich Cafe"
                         },
                         new
                         {
                             Id = 5,
+                            ImageUrl = "brand-5.jpg",
                             IsDeleted = false,
-                            Name = "Scottish Fold"
+                            Name = "Golden"
                         },
                         new
                         {
                             Id = 6,
+                            ImageUrl = "brand-6.jpg",
                             IsDeleted = false,
-                            Name = "Nikon"
+                            Name = "Norcold"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImageUrl = "brand-7.png",
+                            IsDeleted = false,
+                            Name = "Apple"
                         });
                 });
 
@@ -234,6 +250,7 @@ namespace BackEndProject.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentId")
@@ -248,345 +265,183 @@ namespace BackEndProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 21,
+                            Id = 1,
                             ImageUrl = "category-6.jpg",
                             Name = "Computers"
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 2,
                             ImageUrl = "category-2.jpg",
                             Name = "Monitors"
                         },
                         new
                         {
-                            Id = 23,
+                            Id = 3,
                             ImageUrl = "category-8.jpg",
                             Name = "Watches"
                         },
                         new
                         {
-                            Id = 24,
+                            Id = 4,
                             ImageUrl = "category-1.jpg",
                             Name = "Notebooks"
                         },
                         new
                         {
-                            Id = 25,
+                            Id = 5,
                             ImageUrl = "category-4.jpg",
                             Name = "Game Consoles"
                         },
                         new
                         {
-                            Id = 26,
+                            Id = 6,
                             ImageUrl = "category-9.jpg",
                             Name = "Washing Machine"
                         },
                         new
                         {
-                            Id = 27,
+                            Id = 7,
                             ImageUrl = "category-12.jpg",
                             Name = "Batteries"
                         },
                         new
                         {
-                            Id = 28,
+                            Id = 8,
                             ImageUrl = "category-10.jpg",
                             Name = "Cameras"
                         },
                         new
                         {
-                            Id = 29,
+                            Id = 9,
                             ImageUrl = "category-7.jpg",
                             Name = "Printers"
                         },
                         new
                         {
-                            Id = 31,
+                            Id = 10,
                             ImageUrl = "vg.jpg",
                             Name = "Video Games"
                         },
                         new
                         {
-                            Id = 32,
-                            ImageUrl = "acc.jpg",
-                            Name = "Accessories"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            ImageUrl = "hand.jpg",
-                            Name = "Implants"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            ImageUrl = "category-14.jpg",
-                            Name = "Gerenade Laucnhers"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            ImageUrl = "category-15.jpg",
-                            Name = "Pets"
-                        },
-                        new
-                        {
-                            Id = 36,
-                            ImageUrl = "category-16.jpg",
-                            Name = "Nuclear Weapons"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            ImageUrl = "category-17.jpg",
-                            Name = "SuperCars"
-                        },
-                        new
-                        {
-                            Id = 38,
-                            ImageUrl = "category-18.jpg",
-                            Name = "Space Ships"
-                        },
-                        new
-                        {
-                            Id = 39,
-                            ImageUrl = "category-19.jpg",
-                            Name = "Tanks"
-                        },
-                        new
-                        {
-                            Id = 40,
-                            ImageUrl = "category-20.jpg",
-                            Name = "Automatic Assault Rifles"
-                        },
-                        new
-                        {
-                            Id = 41,
+                            Id = 11,
                             Name = "Nasa Super Computers",
-                            ParentId = 21
+                            ParentId = 1
                         },
                         new
                         {
-                            Id = 42,
+                            Id = 12,
                             Name = "Office Computers",
-                            ParentId = 21
+                            ParentId = 1
                         },
                         new
                         {
-                            Id = 43,
+                            Id = 13,
                             Name = "Gaming Monitor",
-                            ParentId = 22
+                            ParentId = 2
                         },
                         new
                         {
-                            Id = 44,
+                            Id = 14,
                             Name = "Standart Monitor",
-                            ParentId = 22
+                            ParentId = 2
                         },
                         new
                         {
-                            Id = 45,
+                            Id = 15,
                             Name = "Digital Watches",
-                            ParentId = 23
+                            ParentId = 3
                         },
                         new
                         {
-                            Id = 46,
+                            Id = 16,
                             Name = "Analog Watches",
-                            ParentId = 23
+                            ParentId = 3
                         },
                         new
                         {
-                            Id = 47,
+                            Id = 17,
                             Name = "Gaming Notebook",
-                            ParentId = 24
+                            ParentId = 4
                         },
                         new
                         {
-                            Id = 48,
+                            Id = 18,
                             Name = "Word Notebook",
-                            ParentId = 24
+                            ParentId = 4
                         },
                         new
                         {
-                            Id = 49,
+                            Id = 19,
                             Name = "Wired Oldschool",
-                            ParentId = 25
+                            ParentId = 5
                         },
                         new
                         {
-                            Id = 50,
+                            Id = 20,
                             Name = "Next Generation",
-                            ParentId = 25
+                            ParentId = 5
                         },
                         new
                         {
-                            Id = 51,
+                            Id = 21,
                             Name = "Large Machine",
-                            ParentId = 26
+                            ParentId = 6
                         },
                         new
                         {
-                            Id = 52,
+                            Id = 22,
                             Name = "Standart",
-                            ParentId = 26
+                            ParentId = 6
                         },
                         new
                         {
-                            Id = 53,
+                            Id = 23,
                             Name = "Power Banks",
-                            ParentId = 27
+                            ParentId = 7
                         },
                         new
                         {
-                            Id = 54,
+                            Id = 24,
                             Name = "Adapters",
-                            ParentId = 27
+                            ParentId = 7
                         },
                         new
                         {
-                            Id = 55,
+                            Id = 25,
                             Name = "Telescopic Cameras",
-                            ParentId = 28
+                            ParentId = 8
                         },
                         new
                         {
-                            Id = 56,
+                            Id = 26,
                             Name = "Digital Cameras",
-                            ParentId = 28
+                            ParentId = 8
                         },
                         new
                         {
-                            Id = 57,
+                            Id = 27,
                             Name = "Laser Printers",
-                            ParentId = 29
+                            ParentId = 9
                         },
                         new
                         {
-                            Id = 58,
+                            Id = 28,
                             Name = "Inky Printers",
-                            ParentId = 29
+                            ParentId = 9
                         },
                         new
                         {
-                            Id = 59,
+                            Id = 29,
                             Name = "Bracalet",
-                            ParentId = 32
+                            ParentId = 10
                         },
                         new
                         {
-                            Id = 60,
+                            Id = 30,
                             Name = "Headsets",
-                            ParentId = 32
-                        },
-                        new
-                        {
-                            Id = 61,
-                            Name = "Pc Video Games",
-                            ParentId = 31
-                        },
-                        new
-                        {
-                            Id = 62,
-                            Name = "Console Video Games",
-                            ParentId = 31
-                        },
-                        new
-                        {
-                            Id = 63,
-                            Name = "Robotic Heart",
-                            ParentId = 33
-                        },
-                        new
-                        {
-                            Id = 64,
-                            Name = "Robotic Eye",
-                            ParentId = 33
-                        },
-                        new
-                        {
-                            Id = 65,
-                            Name = "Electronic",
-                            ParentId = 34
-                        },
-                        new
-                        {
-                            Id = 66,
-                            Name = "Close Range",
-                            ParentId = 34
-                        },
-                        new
-                        {
-                            Id = 67,
-                            Name = "Cats",
-                            ParentId = 35
-                        },
-                        new
-                        {
-                            Id = 68,
-                            Name = "Dogs",
-                            ParentId = 35
-                        },
-                        new
-                        {
-                            Id = 69,
-                            Name = "Hydrogen Bombs",
-                            ParentId = 36
-                        },
-                        new
-                        {
-                            Id = 70,
-                            Name = "Electro Magnetic Bombs",
-                            ParentId = 36
-                        },
-                        new
-                        {
-                            Id = 71,
-                            Name = "Supersports",
-                            ParentId = 37
-                        },
-                        new
-                        {
-                            Id = 72,
-                            Name = "Hyper Cars",
-                            ParentId = 37
-                        },
-                        new
-                        {
-                            Id = 73,
-                            Name = "Orbiter spacecraft",
-                            ParentId = 38
-                        },
-                        new
-                        {
-                            Id = 74,
-                            Name = "Rover Spacecraft",
-                            ParentId = 38
-                        },
-                        new
-                        {
-                            Id = 75,
-                            Name = "Heavy Tanks",
-                            ParentId = 39
-                        },
-                        new
-                        {
-                            Id = 76,
-                            Name = "Artillery Tanks",
-                            ParentId = 39
-                        },
-                        new
-                        {
-                            Id = 77,
-                            Name = "Close Range Rifles",
-                            ParentId = 40
-                        },
-                        new
-                        {
-                            Id = 78,
-                            Name = "Long Range Rifles",
-                            ParentId = 40
+                            ParentId = 10
                         });
                 });
 
@@ -725,10 +580,10 @@ namespace BackEndProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 2,
+                            Id = 1,
                             Bestseller = true,
                             BrandId = 2,
-                            CategoryId = 22,
+                            CategoryId = 1,
                             Count = 20,
                             CreatedTime = new DateTime(2022, 7, 23, 0, 46, 20, 31, DateTimeKind.Unspecified).AddTicks(1359),
                             Description = "This Model Is Special",
@@ -742,27 +597,6 @@ namespace BackEndProject.Migrations
                             Name = "Macbook Pro",
                             NewArrival = true,
                             Price = 2000.0,
-                            TaxPercent = 10.0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Bestseller = true,
-                            BrandId = 1,
-                            CategoryId = 25,
-                            Count = 20,
-                            CreatedTime = new DateTime(2022, 7, 23, 0, 46, 20, 31, DateTimeKind.Unspecified).AddTicks(1359),
-                            Description = "Phone",
-                            DiscountPercent = 10.0,
-                            DiscountPrice = 100.0,
-                            InStock = true,
-                            IsAvailability = true,
-                            IsDeleted = false,
-                            IsFeatured = true,
-                            IsSpecial = true,
-                            Name = "Xperia",
-                            NewArrival = true,
-                            Price = 1500.0,
                             TaxPercent = 10.0
                         });
                 });
@@ -788,6 +622,76 @@ namespace BackEndProject.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImageUrl = "product-1.jpg",
+                            IsMain = true,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImageUrl = "product-2.jpg",
+                            IsMain = false,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImageUrl = "product-3.jpg",
+                            IsMain = false,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageUrl = "product-4.jpg",
+                            IsMain = false,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImageUrl = "product-5.jpg",
+                            IsMain = false,
+                            ProductId = 1
+                        });
+                });
+
+            modelBuilder.Entity("BackEndProject.Models.ProductTags", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("TagProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ProductId = 1,
+                            TagId = 6
+                        });
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Slider", b =>
@@ -812,31 +716,24 @@ namespace BackEndProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sliders");
-                });
 
-            modelBuilder.Entity("BackEndProject.Models.TagProducts", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("TagProducts");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Explore and immerse in exciting 360 content with Fulldive’s all-in-one virtual reality platform",
+                            ImageUrl = "slider-1.jpg",
+                            MainTitle = "<span>2020 Virtual Reality </span> Fulldive VR.",
+                            Subtitle = "Save $120 when you buy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Explore and immerse in exciting 360 content with Fulldive’s all-in-one virtual reality platform",
+                            ImageUrl = "slider-2.jpg",
+                            MainTitle = "<span>4K HDR Smart TV 43 </span> Sony Bravia.",
+                            Subtitle = "Save $120 when you buy"
+                        });
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Tags", b =>
@@ -852,6 +749,38 @@ namespace BackEndProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Camera"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Drone"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Music"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Memory"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Gaming"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Premium"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1038,10 +967,10 @@ namespace BackEndProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BackEndProject.Models.TagProducts", b =>
+            modelBuilder.Entity("BackEndProject.Models.ProductTags", b =>
                 {
                     b.HasOne("BackEndProject.Models.Product", "Product")
-                        .WithMany("TagProducts")
+                        .WithMany("ProductTags")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

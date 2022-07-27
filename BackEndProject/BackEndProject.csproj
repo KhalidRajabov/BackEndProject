@@ -5,27 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20220721222759_Initial.cs" />
-    <Compile Remove="Migrations\20220721222759_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20220722164109_newtableslider.cs" />
-    <Compile Remove="Migrations\20220722164109_newtableslider.Designer.cs" />
-    <Compile Remove="Migrations\20220724140032_product_seeds.cs" />
-    <Compile Remove="Migrations\20220724140032_product_seeds.Designer.cs" />
-    <Compile Remove="Migrations\20220724140445_product_seeds.cs" />
-    <Compile Remove="Migrations\20220724140445_product_seeds.Designer.cs" />
-    <Compile Remove="Migrations\20220725151437_product_update2.cs" />
-    <Compile Remove="Migrations\20220725151437_product_update2.Designer.cs" />
-    <Compile Remove="Migrations\20220725152503_seed_addition.cs" />
-    <Compile Remove="Migrations\20220725152503_seed_addition.Designer.cs" />
-    <Compile Remove="Migrations\20220725152756_seed_addition.cs" />
-    <Compile Remove="Migrations\20220725152756_seed_addition.Designer.cs" />
-    <Compile Remove="Migrations\20220725152828_seed_addition.cs" />
-    <Compile Remove="Migrations\20220725152828_seed_addition.Designer.cs" />
-    <Compile Remove="Migrations\20220725152932_seed_addition.cs" />
-    <Compile Remove="Migrations\20220725152932_seed_addition.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Faker.Net" Version="2.0.154" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />

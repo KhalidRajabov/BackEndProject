@@ -161,13 +161,12 @@ namespace BackEndProject.Controllers
             return RedirectToAction("index", "home");
         }
 
-        
 
 
-        /*public async Task CreateRole()
+
+        public async Task CreateRole()
         {
-            *//*-------When needed a new role, uncomment this method and -------
-            -------add a new role, then go to action in browser------ -*//*
+
             if (!await _roleManager.RoleExistsAsync("Admin"))
             {
                 await _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
@@ -180,6 +179,6 @@ namespace BackEndProject.Controllers
             {
                 await _roleManager.CreateAsync(new IdentityRole { Name = "SuperAdmin" });
             }
-        }*/
+        }
     }
 }
