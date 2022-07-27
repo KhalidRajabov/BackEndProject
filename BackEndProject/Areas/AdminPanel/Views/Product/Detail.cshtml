@@ -25,6 +25,12 @@
                       <h5 class="card-text">Discount percent: @(Model.DiscountPercent)%</h5>
                       <h5 class="card-text">Discount price: @Model.DiscountPrice</h5>
                       <h5 class="card-text">Price: @Model.Price</h5>
+                         <h5 class="card-text">Tags: 
+                    @foreach (var item in Model.ProductTags)
+                    {
+                        @item.Tags.Name  
+                    }
+                </h5>
                       <h5 class="card-text">Tax: @Model.TaxPercent</h5>
                       <h5 class="card-text">Price: @Model.Price</h5>
                       @Html.Raw(Model.IsAvailability==true?"<h5 class='card-text'>Price: Available</h5>":"<h5 class='card-text'>Price: Out of stock</h5>")

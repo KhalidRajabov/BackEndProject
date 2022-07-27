@@ -534,9 +534,6 @@ namespace BackEndProject.Migrations
                     b.Property<double>("DiscountPrice")
                         .HasColumnType("float");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("InStock")
                         .HasColumnType("bit");
 
@@ -672,16 +669,13 @@ namespace BackEndProject.Migrations
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TagsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("TagsId");
+                    b.HasIndex("TagId");
 
-                    b.ToTable("TagProducts");
+                    b.ToTable("ProductTags");
 
                     b.HasData(
                         new
@@ -734,7 +728,7 @@ namespace BackEndProject.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BackEndProject.Models.Tags", b =>
+            modelBuilder.Entity("BackEndProject.Models.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -973,9 +967,11 @@ namespace BackEndProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BackEndProject.Models.Tags", "Tags")
-                        .WithMany("TagProducts")
-                        .HasForeignKey("TagsId");
+                    b.HasOne("BackEndProject.Models.Tag", "Tags")
+                        .WithMany("ProductTag")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

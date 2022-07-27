@@ -7,6 +7,6 @@
         public int TagId { get; set; }
 
         public Product Product { get; set; }
-        public Tags Tags { get; set; }
+        public Tag Tags { get; set; }
     }
 }

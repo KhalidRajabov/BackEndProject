@@ -48,57 +48,73 @@ namespace BackEndProject.Area.AdminPanel.Controllers
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null) return NotFound();
-            Product dbProduct = await _context.Products.Include(c => c.Category).Include(pi=>pi.ProductImages).FirstOrDefaultAsync(c => c.Id == id);
+            Product dbProduct = await _context.Products.Include(c => c.Category)
+                .Include(c=>c.ProductTags).ThenInclude(t=>t.Tags)
+                .Include(pi=>pi.ProductImages)
+                .FirstOrDefaultAsync(c => c.Id == id);
             if (dbProduct == null) return NotFound();
             return View(dbProduct);
         }
 
         public IActionResult Create()
         {
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
-            ViewBag.Brands = new SelectList(_context.Brands.ToList(), "Id", "Name");
+            ViewBag.Categories = new SelectList(_context.Categories.Where(c => c.IsDeleted != true).Where(c => c.ParentId == null).ToList(), "Id", "Name");
+            ViewBag.Brands = new SelectList(_context.Brands.Where(c => c.IsDeleted != true).ToList(), "Id", "Name");
+            ViewBag.Tags = new SelectList(_context.Tags.ToList(), "Id", "Name");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Product product)
         {
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
-            ViewBag.Brands = new SelectList(_context.Brands.ToList(), "Id", "Name");
-            if (product.Photo == null)
-            {
-                ModelState.AddModelError("Photo", "Do not leave it empty");
-                return View();
-            }
+            ViewBag.Categories = new SelectList(_context.Categories.Where(c=>c.IsDeleted!=true).Where(c=>c.ParentId==null).ToList(), "Id", "Name");
+            ViewBag.Brands = new SelectList(_context.Brands.Where(c => c.IsDeleted != true).ToList(), "Id", "Name");
+            ViewBag.Tags = new SelectList(_context.Tags.ToList(), "Id", "Name");
 
-            if (!product.Photo.IsImage())
-            {
-                ModelState.AddModelError("Photo", "Do not leave it empty");
-                return View();
-            }
-            if (product.Photo.ValidSize(10000))
-            {
-                ModelState.AddModelError("Photo", "Image size can not be large");
-                return View();
-            }
-            if (!(product.CategoryId > 0))
-            {
-                ModelState.AddModelError("CategoryId", "Choose a category");
-                return View();
-            }
+            List<ProductImage> Images = new List<ProductImage>();
 
+            foreach (var item in product.Photo)
+            {
+                if (item == null)
+                {
+                    ModelState.AddModelError("Photo", "Do not leave it empty");
+                    return View();
+                }
+                if (!item.IsImage())
+                {
+                    ModelState.AddModelError("Photo", "Do not leave it empty");
+                    return View();
+                }
+                if (item.ValidSize(10000))
+                {
+                    ModelState.AddModelError("Photo", "Image size can not be large");
+                    return View();
+                }
+                ProductImage image = new ProductImage();
+                image.ImageUrl = item.SaveImage(_env, "images/product");
+                Images.Add(image);
+            }
 
 
             Product NewProduct = new Product
             {
                 Price = product.Price,
                 Name = product.Name,
-                BrandId=product.BrandId,
+                BrandId = product.BrandId,
                 CategoryId = product.CategoryId,
                 Count = product.Count,
-                ImageUrl = product.Photo.SaveImage(_env, "images")
+                ProductImages = Images
             };
 
+            List<ProductTags> productTags = new List<ProductTags>();
+            foreach (int item in product.TagId)
+            {
+                ProductTags productTag = new ProductTags();
+                productTag.TagId = item;
+                productTag.ProductId = NewProduct.Id;
+                productTags.Add(productTag);
+            }
+            NewProduct.ProductTags = productTags;
             _context.Products.Add(NewProduct);
             _context.SaveChanges();
 
@@ -169,16 +185,22 @@ namespace BackEndProject.Area.AdminPanel.Controllers
 */
 
 
-        public async Task<IActionResult> Delete(int? id)
+        /*public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
             Product product = await _context.Products.FindAsync(id);
             if (product == null) return NotFound();
-            string path = Path.Combine(_env.WebRootPath, "img", product.ImageUrl);
+            string path = Path.Combine(_env.WebRootPath, "img", product.Photo);
             Helper.Helper.DeleteImage(path);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction("index");
+        }*/
+
+        public IActionResult GetSubCategory(int cid)
+        {
+            var SubCategory_List = _context.Categories.Where(s => s.ParentId== cid).Where(s=>s.ParentId!=null).Select(c => new { Id = c.Id, Name = c.Name }).ToList();
+            return Json(SubCategory_List);
         }
     }
 }

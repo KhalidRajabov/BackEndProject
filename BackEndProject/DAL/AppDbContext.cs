@@ -19,9 +19,7 @@ namespace BackEndProject.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Slider> Sliders { get; set; }
-        public DbSet<ProductTags> TagProducts { get; set; }
-        public DbSet<Tags> Tags { get; set; }
-
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -249,33 +247,33 @@ namespace BackEndProject.DAL
                      Description = "This Model Is Special",
                      CreatedTime = System.DateTime.ParseExact("Saturday, 23 July 2022 00:46:20.0311359", "dddd, dd MMMM yyyy HH:mm:ss.fffffff", null)
                  });
-            builder.Entity<Tags>().HasData(
-                 new Tags
+            builder.Entity<Tag>().HasData(
+                 new Tag
                  {
                      Id = 1,
                      Name = "Camera"
                  },
-                 new Tags
+                 new Tag
                  {
                      Id = 2,
                      Name = "Drone"
                  },
-                 new Tags
+                 new Tag
                  {
                      Id = 3,
                      Name = "Music"
                  },
-                 new Tags
+                 new Tag
                  {
                      Id = 4,
                      Name = "Memory"
                  },
-                 new Tags
+                 new Tag
                  {
                      Id = 5,
                      Name = "Gaming"
                  },
-                 new Tags
+                 new Tag
                  {
                      Id = 6,
                      Name = "Premium"

@@ -24,8 +24,11 @@ namespace BackEndProject.Models
         public bool IsDeleted { get; set; }
 
         [NotMapped]
-        public IFormFile Photo { get; set; }
-        public string ImageUrl { get; set; }
+        public List<IFormFile> Photo { get; set; }
+
+        [NotMapped]
+        public List<int> TagId { get; set; }
+
 
         public Nullable<DateTime> CreatedTime { get; set; }
         public Nullable<DateTime> DeletedAt { get; set; }
