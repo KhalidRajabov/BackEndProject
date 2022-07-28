@@ -1,0 +1,78 @@
+﻿@model PaginationVM<Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<div class="row">
+
+      <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  
+                  <div class="table-responsive">
+                    <table id="user-table" class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Image</th>
+                          <th>Name</th>
+                          <th>Price</th>
+                          <th>Category</th>
+                          <th>Available</th>
+                          <th>Settings</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach (var item in Model.Items)
+                       {
+                            count++;
+                           <tr>
+                          <td>@count</td>
+                          <td> 
+                                    @if (item.ProductImages==null)
+                                        {
+                                           <span>No Image</span>
+                                        }
+                                        else
+                                        {
+                                            @foreach (var prodImg in item.ProductImages)
+                                           {
+                                               if (prodImg.IsMain)
+                                               {
+                                                <img style="border-radius:0; width:100px; height:100px" src="~/images/product/@prodImg.ImageUrl"/> 
+                                               }
+                                            }
+                                        }
+                                    </td>
+                          <td>@item.Name</td>
+                          <td> $@item.Price</td>
+                          <td> @item.Category.Name</td>
+                          <td> @item.Count</td>
+                          <td>
+                              <a class="btn btn-success fs-5" asp-action="ProductDetails" asp-route-id="@item.Id"><i class="mdi mdi-information-outline"></i></a>
+                          </td>
+                        </tr>
+                       }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+</div>
+
+
+<div class="col-12 d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    @for (var i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item @(Model.CurrentPage==i?"disabled":"")"><a class="page-link" asp-action="index" asp-route-page="@i">@i</a></li>
+    
+            }
+  </ul>
+</nav>
+</div>

@@ -1,0 +1,47 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="row">
+
+                <div class="col-md-12 grid-margin stretch-card">
+                      <div class="card">
+                      <div class="col-md-12">
+                       @foreach (var item in Model.ProductImages)
+                      {
+                           <img src="~/images/product/@item.ImageUrl" width="100%" class="img-fluid col-4" alt="...">
+                      }
+                </div>
+                    <div class="card-body">
+                      <h4 class="card-title">@Model.Name</h4>
+                        <h5 class="card-text">Create time: @Model.CreatedTime</h5>
+                @if (Model.LastUpdatedAt!=null)
+                {
+                    <h5 class="card-text">Update time:@Model.LastUpdatedAt</h5>
+                }    
+                      
+                      <h5 class="card-text">Price: @Model.Price</h5>
+                      <h5 class="card-text">Discount percent: @(Model.DiscountPercent)%</h5>
+                      <h5 class="card-text">Discount price: @Model.DiscountPrice</h5>
+                      <h5 class="card-text">Price: @Model.Price</h5>
+                         <h5 class="card-text">Tags: 
+                    @foreach (var item in Model.ProductTags)
+                    {
+                        @item.Tags.Name  
+                    }
+                </h5>
+                      <h5 class="card-text">Tax: @Model.TaxPercent</h5>
+                      @Html.Raw(Model.IsAvailability==true?"<h5 class='card-text'>Price: Available</h5>":"<h5 class='card-text'>Price: Out of stock</h5>")
+                      <h5 class="card-text">In stock: @Model.Count</h5>
+                      <h5 class="card-text">Deleted time: @Model.DeletedAt</h5>
+
+
+
+                </div>
+                <a style="align-self:center; margin-bottom: 10px; margin-top: 40px;" class="btn btn-dark text-light w-25" asp-action="RecoverProduct" asp-route-id="@Model.Id">Recover</a>
+                <a style="align-self:center; margin-bottom: 20px; " asp-action="DeletedProducts" class="btn btn-info w-25">Go Back</a>
+                  </div>
+                </div>
+
+</div>

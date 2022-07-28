@@ -1,4 +1,5 @@
 ﻿using BackEndProject.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,24 @@ namespace BackEndProject.DAL
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id= "39792324-9bcf-41cc-aff7-9421ab090dbf",
+                    Name="Member"
+                },
+                new IdentityRole
+                {
+                    Id = "7985400a-d644-4954-a0c5-f579a46dd5c6",
+                    Name = "Admin"
+                },
+                new IdentityRole
+                {
+                    Id = "d76fa29e-8b9b-431d-90e1-641c634654da",
+                    Name = "SuperAdmin"
+                });
+            
+
             builder.Entity<Category>().HasData(
                 
                 new Category

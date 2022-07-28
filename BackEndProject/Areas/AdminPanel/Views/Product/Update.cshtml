@@ -11,7 +11,13 @@
      <div class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Create Product</h4>
+                <h4 class="card-title mt-5">Update Product</h4>
+                    <div class="col-md-12">
+                       @foreach (var item in Model.ProductImages)
+                      {
+                           <img src="~/images/product/@item.ImageUrl" style="width: 250px; height: 150px;" class="img-fluid" alt="...">
+                      }
+                </div>
 
                   <div class="col-md-4">
                   @*<img src="~/images/@Model.ImageUrl" class="img-fluid rounded-start">*@
@@ -53,6 +59,12 @@
                      <span style="color: red;" asp-validation-for="BrandId"></span>
                     </div>
 
+                    <div class="form-group">
+                    <select style="width: 50%" asp-for="TagId" class="form-select" asp-items="ViewBag.Tags" >
+                        <option selected>Tags</option>
+                    </select>
+                     <span style="color: red;" asp-validation-for="TagId"></span>
+                    </div>
 
                     <div class="form-group">
 

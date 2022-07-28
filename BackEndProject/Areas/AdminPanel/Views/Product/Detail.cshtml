@@ -32,14 +32,14 @@
                     }
                 </h5>
                       <h5 class="card-text">Tax: @Model.TaxPercent</h5>
-                      <h5 class="card-text">Price: @Model.Price</h5>
                       @Html.Raw(Model.IsAvailability==true?"<h5 class='card-text'>Price: Available</h5>":"<h5 class='card-text'>Price: Out of stock</h5>")
                       <h5 class="card-text">In stock: @Model.Count</h5>
 
 
 
                 </div>
-                <a style="align-self:center; margin-bottom: 40px; margin-top: 40px;" asp-action="index" class="btn btn-info w-25">Go Back</a>
+                <a style="align-self:center; margin-bottom: 10px; margin-top: 40px;" class="btn btn-danger text-light w-25" asp-action="delete" asp-route-id="@Model.Id">Delete</a>
+                <a style="align-self:center; margin-bottom: 20px;" asp-action="index" class="btn btn-info w-25">Go Back</a>
                   </div>
                 </div>
 

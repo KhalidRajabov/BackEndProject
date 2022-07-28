@@ -23,11 +23,11 @@ namespace BackEndProject.Controllers
 
         public async  Task<IActionResult> Index()
         {
-            var product = await _context.Products.Include(pi => pi.ProductImages).ToListAsync();
+            var product = await _context.Products.Where(p => p.IsDeleted != true).Include(pi => pi.ProductImages).ToListAsync();
             HomeVM homeVM = new HomeVM();
             homeVM.Sliders = await _context.Sliders.ToListAsync();
-            homeVM.Categories = await _context.Categories.Where(c=>c.ParentId==null).ToListAsync();
-            homeVM.Products =await _context.Products
+            homeVM.Categories = await _context.Categories.Where(p => p.IsDeleted != true).Where(c=>c.ParentId==null).ToListAsync();
+            homeVM.Products =await _context.Products.Where(p=>p.IsDeleted!=true)
             .Include(pi=>pi.ProductImages).Include(pc=>pc.Category).Include(b=>b.Brand)
             .Include(tp=>tp.ProductTags).ThenInclude(t=>t.Tags).ToListAsync();
 

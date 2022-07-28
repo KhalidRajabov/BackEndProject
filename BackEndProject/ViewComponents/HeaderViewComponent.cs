@@ -45,7 +45,8 @@ namespace BackEndProject.ViewComponents
             }
             HeaderComponentVM hdVM = new HeaderComponentVM();
             hdVM.Bio = _context.Bios.FirstOrDefault();
-            hdVM.Categories = _context.Categories.Where(c => c.ParentId == null).ToList();
+            hdVM.Categories = _context.Categories.Where(c=>c.IsDeleted!=true).Where(c => c.ParentId == null).ToList();
+            
             return View(await Task.FromResult(hdVM));
         }
     }

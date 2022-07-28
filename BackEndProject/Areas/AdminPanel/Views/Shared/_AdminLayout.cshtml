@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="~/admin/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="~/admin/images/favicon.png" />
+  @RenderSection("css", false);
 </head>
 <body>
   <div class="container-scroller">
@@ -446,15 +447,15 @@
           <li class="nav-item nav-category">UI Elements</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-floor-plan"></i>
-              <span class="menu-title">UI Elements</span>
+              <i class="menu-icon mdi mdi-recycle"></i>
+              <span class="menu-title">Recycle Bin</span>
               <i class="menu-arrow"></i> 
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                <li class="nav-item"> <a class="nav-link" asp-action="DeletedProducts" asp-controller="recycle">Products</a></li>
+                <li class="nav-item"> <a class="nav-link" asp-action="deletedcategories" asp-controller="recycle">Categories</a></li>
+                <li class="nav-item"> <a class="nav-link" asp-action="deletedbrands" asp-controller="recycle">Brands</a></li>
               </ul>
             </div>
           </li>

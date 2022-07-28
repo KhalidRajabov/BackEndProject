@@ -112,10 +112,15 @@
                                            {
                                                if (prodImg.IsMain)
                                                {
-                                                 <img class="first-image" src="~/images/product/@prodImg.ImageUrl" alt="product">
+                                                 <img width="200" height="220" class="first-image" src="~/images/product/@prodImg.ImageUrl" alt="product">
                                                }
+                                              else
+                                                {
+                                                    <img width="200" height="220" class="second-image" src="~/images/product/@prodImg.ImageUrl" alt="product">
+                                                break;
+                                                }
                                            }
-                                            <img class="second-image" src="~/images/product/product-2.jpg" alt="product">
+                                           
                                         </a>
                                         <ul class="product-meta">
                                             <li><a href="#"><i class="icon ion-bag"></i></a></li>
@@ -123,6 +128,10 @@
                                             <li><a href="#"><i class="icon ion-android-options"></i></a></li>
                                             <li><a data-toggle="modal" data-target="#productQuickModal" href="#"><i class="icon ion-android-open"></i></a></li>
                                         </ul>
+                                        @if (item.DiscountPercent>0)
+                                        {
+                                            <span class="discount-product">-@item.DiscountPercent%</span>
+                                        }
                                     </div>
                                     <div class="product-content">
                                         <ul class="product-rating">
@@ -134,7 +143,13 @@
                                         </ul>
                                         <h4 class="product-title"><a href="single-product.html">@item.Name</a></h4>
                                         <div class="product-price">
-                                            <span class="price-sale">€@item.Price</span>
+                                            @if (item.DiscountPercent>0)
+                                            {
+                                                <span class="price-sale">€@item.DiscountPrice</span>
+                                            }
+                                            else{
+                                                <span class="price-sale">€@item.Price</span>
+                                            }
                                         </div>
                                     </div>
                                 </div> <!-- single product -->

@@ -3,7 +3,11 @@
     ViewData["Title"] = "Create";
     Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
 }
-
+@section css{
+  label{
+      color: green;
+  }  
+}
 <div class="row">
 
 
@@ -26,14 +30,34 @@
                     </div>
 
                     <div class="form-group">
+                      <label asp-for="DiscountPercent"></label>
+                      <input asp-for="DiscountPercent" class="form-control" placeholder="Discount Percent">
+                      <span style="color: red;" asp-validation-for="DiscountPercent"></span>
+                    </div>
+
+                    <div class="form-group">
+                      <label asp-for="TaxPercent"></label>
+                      <input asp-for="TaxPercent" class="form-control" placeholder="Tax Percent">
+                      <span style="color: red;" asp-validation-for="TaxPercent"></span>
+                    </div>
+
+                    <div class="form-group">
                       <label asp-for="Count"></label>
                       <input asp-for="Count" class="form-control" placeholder="Count">
                       <span style="color: red;" asp-validation-for="Count"></span>
                     </div>
 
+
+                    <div class="form-group">
+                      <label asp-for="Description"></label>
+                      <input asp-for="Description" class="form-control" placeholder="Description">
+                      <span style="color: red;" asp-validation-for="Description"></span>
+                    </div>
+
                     
                     
                     <div class="form-group">
+                        <label asp-for="Brand"></label>
                     <select asp-for="BrandId" class="form-select" asp-items="ViewBag.Brands" >
                         <option selected>Brand</option>
                     </select>
@@ -43,6 +67,7 @@
                     
                     
                     <div class="form-group">
+                        <label asp-for="Category"></label>
                     <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories" >
                         <option selected>Category</option>
                     </select>
@@ -51,6 +76,7 @@
 
                     
                     <div class="form-group">
+                        <label> Sub-category</label>
                     <select id="SubCategoryTypeId" class="form-select" >
                         <option selected>Sub category</option>
                     </select>
@@ -60,6 +86,7 @@
 
 
                     <div class="form-group">
+                        <label asp-for="ProductTags"></label>
                     <select style="width: 50%" asp-for="TagId" class="form-select" asp-items="ViewBag.Tags" >
                         <option selected>Tags</option>
                     </select>
