@@ -240,7 +240,8 @@ namespace BackEndProject.DAL
                     Email = "email@yourwebsitename.com",
                     WorkTimes = "Mon-Sat 9:00pm - 5:00pm Sun:Closed",
                     Author = "Me Myself",
-                    CardsImageUrl = "payment.png"
+                    CardsImageUrl = "payment.png",
+                    NewsLetterImgUrl = "bg-newletter.jpg"
                 }
                 );
 

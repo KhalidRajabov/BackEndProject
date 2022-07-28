@@ -121,7 +121,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null) return NotFound();
-            Product dbProduct = await _context.Products.Include(c => c.Category)
+            Product dbProduct = await _context.Products.Include(c => c.Category).Where(c=>c.Category.ParentId!=null)
                 .Include(c => c.ProductTags).ThenInclude(t => t.Tags)
                 .Include(pi => pi.ProductImages)
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -135,7 +135,8 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
             ViewBag.Tags = new SelectList(_context.Tags.ToList(), "Id", "Name");
             if (id == null) return NotFound();
-            Product product = await _context.Products.Include(i=>i.ProductImages).Include(t=>t.ProductTags).ThenInclude(p=>p.Tags).FirstOrDefaultAsync(c=>c.Id ==id);
+            Product product = await _context.Products.Include(i=>i.ProductImages)
+                .Include(t=>t.ProductTags).ThenInclude(p=>p.Tags).FirstOrDefaultAsync(c=>c.Id ==id);
             if (product == null) return NotFound();
             return View(product);
         }
@@ -166,7 +167,8 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                 return View();
             }
             List<ProductImage> images = new List<ProductImage>();
-            Product dbProductName = _context.Products.FirstOrDefault(c => c.Name.ToLower().Trim() == product.Name.ToLower().Trim());
+            Product dbProductName = _context.Products
+                .FirstOrDefault(c => c.Name.ToLower().Trim() == product.Name.ToLower().Trim());
             string path = "";
             if (product.Photo == null)
             {

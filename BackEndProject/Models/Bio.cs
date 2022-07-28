@@ -12,5 +12,6 @@
         public string WorkTimes { get; set; }
         public string Author { get; set; }
         public string CardsImageUrl { get; set; }
+        public string NewsLetterImgUrl { get; set; }
     }
 }

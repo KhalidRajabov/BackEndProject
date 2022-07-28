@@ -43,7 +43,16 @@ namespace BackEndProject.Controllers
             ViewBag.IsMain = IsMain;
             return View(homeVM);
         }
+        public IActionResult SearchProduct(string search)
+        {
+            List<Product> products = _context.Products
+                .Include(p => p.Category)
+                .OrderBy(p => p.Id).Where(p=>p.IsDeleted!=true).Where(p => p.Name.ToLower().Contains(search.ToLower()))
+                .Take(10).ToList();
 
-        
+            return PartialView("_SearchPartial", products);
+        }
+
+
     }
 }

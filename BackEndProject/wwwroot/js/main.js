@@ -8,7 +8,26 @@ $(function() {
         $('#preloader').delay(500).fadeOut(500);
     });
         
-    
+
+
+    //===== search
+
+    $(document).on("keyup", "#input-search", function () {
+        let inputValue = $(this).val();
+        alert("da")
+        $("#SearchList li").slice(1).remove();
+        $("#SearchList").html()
+        $.ajax({
+            url: "home/SearchProduct?search=" + inputValue,
+            method: "get",
+            success: function (res) {
+                console.log(res);
+                $("#SearchList").append(res);
+            }
+        })
+    })
+
+
 
     //===== Sticky
     
@@ -754,6 +773,8 @@ $(function() {
             if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
         }
     });
+
+
     
    
     //=====  Countdown
