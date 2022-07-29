@@ -25,7 +25,7 @@ namespace BackEndProject.DAL
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<IdentityRole>().HasData(
+      /*      builder.Entity<IdentityRole>().HasData(
                 new IdentityRole
                 {
                     Id= "39792324-9bcf-41cc-aff7-9421ab090dbf",
@@ -40,7 +40,7 @@ namespace BackEndProject.DAL
                 {
                     Id = "d76fa29e-8b9b-431d-90e1-641c634654da",
                     Name = "SuperAdmin"
-                });
+                });*/
             
 
             builder.Entity<Category>().HasData(

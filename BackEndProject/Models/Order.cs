@@ -7,6 +7,7 @@ namespace BackEndProject.Models
     {
         public int Id { get; set; }
         public DateTime OrderedAt { get; set; }
+        public double Price { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
         public OrderStatus OrderStatus { get; set; }
