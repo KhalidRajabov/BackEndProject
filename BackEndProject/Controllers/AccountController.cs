@@ -179,6 +179,10 @@ namespace BackEndProject.Controllers
             {
                 await _roleManager.CreateAsync(new IdentityRole { Name = "SuperAdmin" });
             }
+            if (!await _roleManager.RoleExistsAsync("Ban"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole { Name = "Ban" });
+            }
         }
     }
 }

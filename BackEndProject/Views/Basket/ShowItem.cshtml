@@ -68,7 +68,7 @@
                                         <td>
                                             <div class="product-quantity">
                                                 <div class="quantity mt-15 d-flex justify-content-around">
-                                                    <a asp-action="minus" asp-controller="basket"  class="sub btn btn-light"><i class="fal fa-minus"></i></a>
+                                                    <a asp-action="minus" asp-controller="basket" asp-route-id="@item.Id" class="sub btn btn-light"><i class="fal fa-minus"></i></a>
                                                     
                                                     <input type="text" value="@item.ProductCount" />
                                                     <a asp-action="plus" asp-controller="basket" asp-route-id="@item.Id" asp-route-count="count" class="add btn btn-light"><i class="fal fa-plus"></i></a>
@@ -82,7 +82,7 @@
                                         </td>
                                         <td>
                                             <div class="product-delete">
-                                                <a asp-action="deleteitem" asp-controller="basket" asp-route-id="@item.Id"><i class="fal fa-trash-alt"></i></a>
+                                                <a asp-action="removeitem" asp-controller="basket" asp-route-id="@item.Id"><i class="fal fa-trash-alt"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -114,25 +114,40 @@
                                 <div class="sub-total">
                                     <div class="single-total">
                                         <span class="cart-value">Subtotal</span>
-                                        <span class="cart-amount">€18.90</span>
+                                        <span class="cart-amount">€@Model.Sum(p=>p.Price*p.ProductCount)</span>
                                     </div>
                                     <div class="single-total">
                                         <span class="cart-value">Shipping Cost</span>
-                                        <span class="cart-amount">€3.90</span>
-                                    </div>
+                                        @if(Model.Sum(p=>p.Price*p.ProductCount)/100>5)
+                                        {
+                                        <span class="cart-amount">€@(Model.Sum(p=>p.Price*p.ProductCount)/100)</span>
+                                        }
+                                        else
+                                        {
+                                        <span class="cart-amount">€5</span>
+                                        }
+                                </div>
                                 </div>
                                 <div class="total">
                                     <div class="single-total">
                                         <span class="cart-value">Total (tax excl.)</span>
-                                        <span class="cart-amount">€22.80</span>
+                                        <span class="cart-amount">@if(Model.Sum(p=>p.Price*p.ProductCount)/100>5)
+                                        {
+                                            <span class="cart-amount">€@((Model.Sum(p=>p.Price*p.ProductCount))+Model.Sum(p=>p.Price*p.ProductCount)/100)</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="cart-amount">€@((Model.Sum(p=>p.Price*p.ProductCount))+Model.Sum(p=>p.Price*p.ProductCount)/100))</span>
+                                        }
+                                    </span>
                                     </div>
                                     <div class="single-total">
                                         <span class="cart-value">Taxes</span>
-                                        <span class="cart-amount">€0.00</span>
+                                        <span class="cart-amount">€10</span>
                                     </div>
                                 </div>
                                 <div class="cart-total-btn text-right">
-                                    <a class="main-btn" href="#">Proceed to Checkout</a>
+                                    <a class="main-btn" asp-action="checkout">Proceed to Checkout</a>
                                 </div>
                             </div>
                         </div>
@@ -145,12 +160,68 @@
     <!--====== Cart Part Ends ======-->
 
     <!--====== Brand Part Start ======-->
+    <div class="brand-area pt-80">
+        <div class="container-fluid custom-container">
+            <div class="row brand-active">
+                
+                @await Component.InvokeAsync("Brand", 7);
 
+
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div>
     <!--====== Brand Part Ends ======-->
 
     <!--====== Features Banner Part Start ======-->
 
-   
-    <!--====== Features Banner Part Ends ======-->
-
-    <!--====== Newsletter Part Start ======-->
+   <section class="features-banner-area pt-80 pb-100">
+        <div class="container-fluid custom-container">
+            <div class="features-banner-wrapper d-flex flex-wrap">
+                <div class="single-features-banner d-flex">
+                    <div class="banner-icon">
+                        <img src="~/images/banner-icon/icon1.png" alt="Icon">
+                    </div>
+                    <div class="banner-content media-body">
+                        <h3 class="banner-title">Free Shipping</h3>
+                        <p>Free shipping on all US order</p>
+                    </div>
+                </div> <!-- single features banner -->
+                <div class="single-features-banner d-flex">
+                    <div class="banner-icon">
+                        <img src="~/images/banner-icon/icon2.png" alt="Icon">
+                    </div>
+                    <div class="banner-content media-body">
+                        <h3 class="banner-title">Support 24/7</h3>
+                        <p>Contact us 24 hours a day</p>
+                    </div>
+                </div> <!-- single features banner -->
+                <div class="single-features-banner d-flex">
+                    <div class="banner-icon">
+                        <img src="~/images/banner-icon/icon3.png" alt="Icon">
+                    </div>
+                    <div class="banner-content media-body">
+                        <h3 class="banner-title">100% Money Back</h3>
+                        <p>You have 30 days to Return</p>
+                    </div>
+                </div> <!-- single features banner -->
+                <div class="single-features-banner d-flex">
+                    <div class="banner-icon">
+                        <img src="~/images/banner-icon/icon4.png" alt="Icon">
+                    </div>
+                    <div class="banner-content media-body">
+                        <h3 class="banner-title">90 Days Return</h3>
+                        <p>If goods have problems</p>
+                    </div>
+                </div> <!-- single features banner -->
+                <div class="single-features-banner d-flex">
+                    <div class="banner-icon">
+                        <img src="~/images/banner-icon/icon5.png" alt="Icon">
+                    </div>
+                    <div class="banner-content media-body">
+                        <h3 class="banner-title">Payment Secure</h3>
+                        <p>We ensure secure payment</p>
+                    </div>
+                </div> <!-- single features banner -->
+            </div> <!-- features banner wrapper -->
+        </div> <!-- container -->
+    </section>

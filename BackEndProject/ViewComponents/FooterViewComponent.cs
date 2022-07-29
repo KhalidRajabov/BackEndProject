@@ -10,12 +10,9 @@ namespace BackEndProject.ViewComponents
     public class FooterViewComponent:ViewComponent
     {
         private readonly AppDbContext _context;
-
-        private readonly UserManager<AppUser> _userManager;
-        public FooterViewComponent(AppDbContext context, UserManager<AppUser> userManager)
+        public FooterViewComponent(AppDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()

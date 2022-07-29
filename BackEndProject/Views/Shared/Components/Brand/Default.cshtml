@@ -1,0 +1,16 @@
+﻿@model List<Brand>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+                <div class="col-lg-2">
+                    <div class="single-brand">
+                        <a href="#">
+                            <img src="~/images/brand/@item.ImageUrl" alt="brand">
+                        </a>
+                    </div> <!-- single brand -->
+                </div>
+}
+

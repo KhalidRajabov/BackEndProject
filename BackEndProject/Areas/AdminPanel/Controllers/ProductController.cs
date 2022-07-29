@@ -167,8 +167,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                 return View();
             }
             List<ProductImage> images = new List<ProductImage>();
-            Product dbProductName = _context.Products
-                .FirstOrDefault(c => c.Name.ToLower().Trim() == product.Name.ToLower().Trim());
+            Product dbProductName = _context.Products.FirstOrDefault(c => c.Name.ToLower().Trim() == product.Name.ToLower().Trim());
             string path = "";
             if (product.Photo == null)
             {
@@ -198,7 +197,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                         return View();
                     }
                     ProductImage image = new ProductImage();
-                    image.ImageUrl = item.SaveImage(_env, "assets/images/product");
+                    image.ImageUrl = item.SaveImage(_env, "images/product");
 
                     if (product.Photo.Count == 1)
                     {
@@ -251,25 +250,8 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                     return View();
                 }
             }
-            if (product.TagId == null)
-            {
-                foreach (var item1 in dbProduct.ProductTags)
-                {
-                    item1.TagId = item1.TagId;
-                }
-            }
-            else
-            {
-                List<ProductTags> productTags = new List<ProductTags>();
-                foreach (int item in product.TagId)
-                {
-                    ProductTags productTag = new ProductTags();
-                    productTag.TagId = item;
-                    productTag.ProductId = dbProduct.Id;
-                    productTags.Add(productTag);
-                }
-                dbProduct.ProductTags = productTags;
-            }
+            
+            
 
 
             dbProduct.Name = product.Name;

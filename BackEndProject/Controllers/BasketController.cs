@@ -68,8 +68,15 @@ namespace BackEndProject.Controllers
                 {
                     Id = dbProduct.Id,
                     ProductCount = 1,
-                    Price = dbProduct.Price
                 };
+                if (dbProduct.DiscountPercent>0)
+                {
+                    basketvm.Price = dbProduct.DiscountPrice;
+                }
+                else
+                {
+                    basketvm.Price=dbProduct.Price;
+                }
                 products.Add(basketvm);
             }
             else
@@ -181,9 +188,12 @@ namespace BackEndProject.Controllers
                 Price = $"(${subtotal})",
                 Count = basketCount
             };
-            return Ok(obj);
+            return RedirectToAction("showitem");
         }
 
+        
+        
+        
         public IActionResult Minus(int? id)
         {
             string username = "";
@@ -255,6 +265,9 @@ namespace BackEndProject.Controllers
             };
             return RedirectToAction("showitem");
         }
+        
+        
+        
         public IActionResult Plus(int? id)
         {
             string username = "";
@@ -297,9 +310,50 @@ namespace BackEndProject.Controllers
             return RedirectToAction("showitem");
         }
 
+
+
+
+        public IActionResult CheckOut()
+        {
+            string username = "";
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("login", "account");
+            }
+            else
+            {
+                username = User.Identity.Name;
+            }
+            //string name = HttpContext.Session.GetString("name");
+            string basket = Request.Cookies[$"basket{username}"];
+            List<BasketVM> products;
+            if (basket != null)
+            {
+                products = JsonConvert.DeserializeObject<List<BasketVM>>(basket);
+                foreach (var item in products)
+                {
+                    Product dbProducts = _context.Products.FirstOrDefault(x => x.Id == item.Id);
+                    item.Name = dbProducts.Name;
+                    if (dbProducts.DiscountPercent > 0)
+                    {
+                        item.Price = dbProducts.DiscountPrice;
+                    }
+                    else
+                    {
+                        item.Price = dbProducts.Price;
+                    }
+                }
+            }
+            else
+            {
+                products = new List<BasketVM>();
+            }
+            return View(products);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Sale()
+        public async Task<IActionResult> Order()
         {
             string username = "";
             if (!User.Identity.IsAuthenticated)

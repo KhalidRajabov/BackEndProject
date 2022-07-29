@@ -204,9 +204,9 @@
                                     <div class="cart-btn">
                                         <a asp-action="showitem" asp-controller="basket">
                                             <i class="icon ion-bag"></i>
-                                            <span class="text">Cart :</span>
-                                            <span class="total">$0.00</span>
-                                            <span class="count">0</span>
+                                            <span class="text">Cart:</span>
+                                            <span class="total">$@ViewBag.TotalPrice</span>
+                                            <span class="count">@ViewBag.BasketCount</span>
                                         </a>
                                     </div>
                                     <div class="mini-cart">
