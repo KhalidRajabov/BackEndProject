@@ -1,4 +1,6 @@
-﻿namespace BackEndProject.ViewModels
+﻿using System.Collections.Generic;
+
+namespace BackEndProject.ViewModels
 {
     public class CheckoutVM
     {
@@ -12,5 +14,9 @@
         public string Country { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }
+        public double Price { get; set; }
+        public string Name { get; set; }
+
+        public List<BasketVM> BasketVM { get; set; }
     }
 }

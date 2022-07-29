@@ -325,30 +325,29 @@ namespace BackEndProject.Controllers
                 username = User.Identity.Name;
             }
             //string name = HttpContext.Session.GetString("name");
+            Order order = new Order();
             string basket = Request.Cookies[$"basket{username}"];
             List<BasketVM> products;
             if (basket != null)
             {
                 products = JsonConvert.DeserializeObject<List<BasketVM>>(basket);
+                ViewBag.Basket = products;
                 foreach (var item in products)
                 {
-                    Product dbProducts = _context.Products.FirstOrDefault(x => x.Id == item.Id);
-                    item.Name = dbProducts.Name;
-                    if (dbProducts.DiscountPercent > 0)
+                    Product dbProduct = _context.Products
+                    .FirstOrDefault(p => p.Id == item.Id);
+                    if (dbProduct.DiscountPercent > 0)
                     {
-                        item.Price = dbProducts.DiscountPrice;
+                        item.Price = dbProduct.DiscountPrice;
                     }
                     else
                     {
-                        item.Price = dbProducts.Price;
+                        item.Price = dbProduct.Price;
                     }
+                    item.Name = dbProduct.Name;
                 }
             }
-            else
-            {
-                products = new List<BasketVM>();
-            }
-            return View(products);
+            return View(order);
         }
 
         [HttpPost]

@@ -1,7 +1,8 @@
-﻿@model List<BasketVM>
+﻿@model Order
 @{
     ViewData["Title"] = "CheckOut";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    double subtotal = 0;
 }
 
     <div class="breadcrumb-area">
@@ -30,33 +31,38 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="single-form">
-                                            <label>First Name*</label>
-                                            <input type="text" placeholder="First Name">
+                                            <label asp-for="Firstname"></label>
+                                            <input asp-for="Firstname" placeholder="First Name">
                                         </div>
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="single-form">
-                                            <label>Last  Name*</label>
-                                            <input type="text" placeholder="Last Name">
+                                            <label asp-for="Lastname"></label>
+                                            <input asp-for="Lastname" placeholder="Last Name">
                                         </div>
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="single-form">
                                             <label>Email Address*</label>
                                             <input type="text" placeholder="Email Address">
                                         </div>
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="single-form">
                                             <label>Phone no*</label>
                                             <input type="text" placeholder="Phone no">
                                         </div>
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="single-form">
                                             <label>Company Name</label>
                                             <input type="text" placeholder="Company Name">
                                         </div>
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="single-form">
@@ -64,11 +70,13 @@
                                             <input type="text" placeholder="Address Line 1">
                                             <input type="text" placeholder="Address Line 2">
                                         </div>
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="single-form">
                                             <label>Country</label>
                                             <select>
+                                                <option value="" selected>Azerbaijan</option>
                                                 <option value="">Bangedesh</option>
                                                 <option value="">India</option>
                                                 <option value="">Pakistan</option>
@@ -83,18 +91,14 @@
                                             <label>Town/City*</label>
                                             <input type="text" placeholder="Town/City">
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form">
-                                            <label>State*</label>
-                                            <input type="text" placeholder="State">
-                                        </div>
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="single-form">
                                             <label>Zip Code*</label>
                                             <input type="text" placeholder="Zip Code">
                                         </div>
+                                        <span class="text-danger" asp-validation-for="Firstname"></span>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +114,7 @@
                         <div class="checkout-total mt-30">
                             <h4 class="title">Product  <span>Total</span></h4>
                             <ul>
-                                @foreach (var item in Model)
+                                @foreach (var item in ViewBag.Basket)
                                {
                                    <li>
                                     <p class="total-value">@item.Name</p>
@@ -120,7 +124,11 @@
                             </ul>
                             <div class="checkout-total-sub">
                                 <p class="total-value">Sub Total</p>
-                                <p class="total-amount">€@Model.Sum(p=>p.Price*p.ProductCount)</p>
+                                @foreach (var item in ViewBag.Basket)
+                               {
+                                subtotal+=(item.Price * item.ProductCount);
+                               }
+                                <p class="total-amount">€@subtotal</p>
                             </div>
                             <div class="checkout-total-sub">
                                 <p class="total-value">Shipping Fee </p>
