@@ -73,6 +73,12 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             Order order = await _context.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
             if (order == null) return NotFound();
             order.OrderStatus = OrderStatus.Refused;
+            List<OrderItem> orderitem =await _context.OrderItems.Where(o=>o.OrderId==order.Id).Include(p => p.Product).ToListAsync();
+            foreach (var item in orderitem)
+            {
+                Product dbProduct = _context.Products.Find(item.ProductId);
+                dbProduct.Count += item.Count;
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction("index");
         }
