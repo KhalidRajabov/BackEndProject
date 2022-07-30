@@ -8,13 +8,13 @@ namespace BackEndProject.Models
     {
         public int Id { get; set; }
         public DateTime OrderedAt { get; set; }
-        [Required]
+        
         public double Price { get; set; }
         [Required]
         public string Address { get; set; }
         [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required]
+   
         public string Country { get; set; }
         [Required]
         public string City { get; set; }

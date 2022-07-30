@@ -1,0 +1,40 @@
+﻿@model List<OrderItem>
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="card col-8">
+
+  <ul class="list-group list-group-flush">
+    @foreach (var item in Model)
+   {
+    <li class="list-group-item"><span style="font-weight: 700">User: </span>  @item.Order.AppUser.Fullname</li>
+    <li class="list-group-item"><span style="font-weight: 700">First name: </span>  @item.Order.Firstname</li>
+    <li class="list-group-item"><span style="font-weight: 700">Last name: </span>  @item.Order.Lastname</li>
+    <li class="list-group-item"><span style="font-weight: 700">Phone number: </span>  @item.Order.Phone</li>
+    <li class="list-group-item"><span style="font-weight: 700">Email address: </span>  @item.Order.Email</li>
+    <li class="list-group-item"><span style="font-weight: 700">Country: </span>  @item.Order.Country</li>
+    <li class="list-group-item"><span style="font-weight: 700">City: </span>  @item.Order.City</li>
+    <li class="list-group-item"><span style="font-weight: 700">Address: </span>  @item.Order.Address</li>
+    <li class="list-group-item"><span style="font-weight: 700">Company: </span>  @item.Order.Companyname</li>
+    <li class="list-group-item"><span style="font-weight: 700">Order time: </span>  @item.Order.OrderedAt</li>
+    <li class="list-group-item"><span style="font-weight: 700">Price: </span>  @item.Order.Price</li>
+   }
+  </ul>
+  <h4 style="margin: 16px 0 0 16px">Products:</h4>
+  <ul class="list-group list-group-flush mt-2">
+      @foreach (var item in Model)
+     {
+         <li class="list-group-item"><span style="font-weight: 700">Name: </span>  @item.Product.Name</li>
+         <li class="list-group-item"><span style="font-weight: 700">Quantity: </span>  @item.Product.Count</li>
+         <li class="list-group-item"><span style="font-weight: 700">Price: </span>  @item.Product.Price</li>
+    
+     }
+  </ul>
+</div>
+
+</div>
+
+

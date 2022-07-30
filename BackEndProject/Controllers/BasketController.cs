@@ -312,7 +312,7 @@ namespace BackEndProject.Controllers
 
 
 
-
+       
         public IActionResult CheckOut()
         {
             string username = "";
@@ -324,14 +324,13 @@ namespace BackEndProject.Controllers
             {
                 username = User.Identity.Name;
             }
-            //string name = HttpContext.Session.GetString("name");
-            Order order = new Order();
             string basket = Request.Cookies[$"basket{username}"];
             List<BasketVM> products;
             if (basket != null)
             {
                 products = JsonConvert.DeserializeObject<List<BasketVM>>(basket);
-                ViewBag.Basket = products;
+                ViewBag.Products = products;
+
                 foreach (var item in products)
                 {
                     Product dbProduct = _context.Products
@@ -347,62 +346,78 @@ namespace BackEndProject.Controllers
                     item.Name = dbProduct.Name;
                 }
             }
-            return View(order);
+            else
+            {
+                products = new List<BasketVM>();
+            }
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Order()
+        public async Task<IActionResult> Order(Order newOrder)
         {
-            string username = "";
-            if (!User.Identity.IsAuthenticated)
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction("login", "account");
-            }
-            else
-            {
-                username = User.Identity.Name;
+                ModelState.AddModelError("", "Fill all forms");
+                return View();
             }
             if (User.Identity.IsAuthenticated)
             {
                 AppUser user = await _usermanager.FindByNameAsync(User.Identity.Name);
                 Order order = new Order();
+                order.Firstname = newOrder.Firstname;
+                order.Lastname = newOrder.Lastname;
+                order.City = newOrder.City;
+                order.Country = newOrder.Country;
+                order.Email = newOrder.Email;
+                order.Phone = newOrder.Phone;
+                order.Zipcode = newOrder.Zipcode;
+                order.Address = newOrder.Address;
+                order.Companyname = newOrder.Companyname;
                 order.OrderedAt = DateTime.Now;
                 order.AppUserId = user.Id;
-                List<BasketVM> basket = JsonConvert.DeserializeObject<List<BasketVM>>(Request.Cookies[$"basket{username}"]);
-                List<OrderItem> OrderItems = new List<OrderItem>();
-                double Total = 0;
-                foreach (var baskepProducts in basket)
+                order.OrderStatus = OrderStatus.Pending;
+
+
+                string userName = User.Identity.Name;
+
+
+                List<BasketVM> basketProducts = JsonConvert.DeserializeObject<List<BasketVM>>(Request.Cookies[$"basket{userName}"]);
+                ViewBag.Products = basketProducts;
+                List<OrderItem> orderItems = new List<OrderItem>();
+                double total = 0;
+                foreach (var basketProduct in basketProducts)
                 {
-                    Product dbProduct = await _context.Products.FindAsync(baskepProducts.Id);
-                    if (baskepProducts.ProductCount > dbProduct.Count)
+                    Product dbProduct = await _context.Products.FindAsync(basketProduct.Id);
+                    if (basketProduct.ProductCount > dbProduct.Count)
                     {
-                        TempData["Fail"] = "Purchase failed. Not enough product in storehouse left...";
-                        return RedirectToAction("showitem");
+                        TempData["fail"] = "Satış uğursuzdur..";
+                        return RedirectToAction("ShowItem");
                     }
-                    OrderItem OrderItem = new OrderItem();
-                    OrderItem.ProductId = dbProduct.Id;
-                    OrderItem.Count = baskepProducts.ProductCount;
-                    OrderItem.Id = order.Id;
-                    OrderItem.Total = dbProduct.Price;
-                    OrderItems.Add(OrderItem);
-                    Total += baskepProducts.ProductCount * dbProduct.Price;
-                    dbProduct.Count -= baskepProducts.ProductCount;
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.ProductId = dbProduct.Id;
+                    orderItem.Count = basketProduct.ProductCount;
+                    orderItem.OrderId = order.Id;
+                    orderItem.Total = dbProduct.Price;
+                    orderItems.Add(orderItem);
+                    total += basketProduct.ProductCount * dbProduct.Price;
+
+                    dbProduct.Count = dbProduct.Count - basketProduct.ProductCount;
                 }
-                order.OrderItems = OrderItems;
-                order.Price = Total;
+                order.OrderItems = orderItems;
+                order.Price = total;
+
                 await _context.AddAsync(order);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Purchase succesfull";
-                return RedirectToAction("showitem");
+
+                TempData["success"] = "Satış uğurla başa çatdı..";
+                return RedirectToAction("ShowItem");
             }
             else
             {
                 return RedirectToAction("login", "account");
             }
         }
-
-
-
     }
 }
