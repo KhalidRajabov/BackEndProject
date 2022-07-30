@@ -407,6 +407,7 @@ namespace BackEndProject.Controllers
                 }
                 order.OrderItems = orderItems;
                 order.Price = total;
+                order.OrderStatus = OrderStatus.Pending;
 
                 await _context.AddAsync(order);
                 await _context.SaveChangesAsync();

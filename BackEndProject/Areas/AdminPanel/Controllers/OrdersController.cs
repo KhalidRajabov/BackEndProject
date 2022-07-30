@@ -42,12 +42,12 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
 
         public async Task<IActionResult> Detail(int id)
         {
-            Order order = await _context.Orders.Include(u=>u.AppUser).Include(o=>o.OrderItems)
+            Order order = await _context.Orders.Where(o=>o.Id==id)
                 .FirstOrDefaultAsync(o=>o.Id==id);
             if(order == null) return NotFound();
             AppUser user = await _userManager.Users.FirstOrDefaultAsync(i=>i.Id==order.AppUserId);
             if(user == null) return NotFound();
-            List<OrderItem> orderItems = _context.OrderItems.Where(o=>o.OrderId==id)
+            List<OrderItem> orderItems = _context.OrderItems.Where(o=>o.OrderId==order.Id)
                 .Include(p=>p.Product).ToList();
             if (orderItems == null) return NotFound();
 
@@ -56,6 +56,25 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             orderitemVM.User = user;
             orderitemVM.OrderItems = orderItems;
             return View(orderitemVM);
+        }
+
+        public async Task<IActionResult> Confirm(int? id)
+        {
+            if (id == null) return NotFound();
+            Order order = await _context.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
+            if (order == null) return NotFound();
+            order.OrderStatus = OrderStatus.Approved;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("index");
+        }
+        public async Task<IActionResult> Decline(int? id)
+        {
+            if (id == null) return NotFound();
+            Order order = await _context.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
+            if (order == null) return NotFound();
+            order.OrderStatus = OrderStatus.Refused;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("index");
         }
     }
 }

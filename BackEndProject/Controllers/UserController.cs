@@ -41,7 +41,7 @@ namespace BackEndProject.Controllers
                 .Include(p=>p.Product).ToListAsync();
             AppUser user = await _usermanager.Users.FirstOrDefaultAsync(i => i.Id == order.AppUserId);
             OrderItemVM orderItemVM = new OrderItemVM();
-            orderItemVM.User = user;
+            orderItemVM.User=user;
             orderItemVM.Order=order;
             orderItemVM.OrderItems = orderItems;
             return View(orderItemVM);
