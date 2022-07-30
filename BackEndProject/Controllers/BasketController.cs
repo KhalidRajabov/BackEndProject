@@ -399,7 +399,7 @@ namespace BackEndProject.Controllers
                     orderItem.ProductId = dbProduct.Id;
                     orderItem.Count = basketProduct.ProductCount;
                     orderItem.OrderId = order.Id;
-                    orderItem.Total = dbProduct.Price;
+                    orderItem.Total = dbProduct.Price*basketProduct.ProductCount;
                     orderItems.Add(orderItem);
                     total += basketProduct.ProductCount * dbProduct.Price;
 

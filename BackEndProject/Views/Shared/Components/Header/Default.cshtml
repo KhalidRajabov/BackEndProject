@@ -31,7 +31,9 @@
                                         <button type="button" id="setting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.User<i class="icon ion-chevron-down"></i></button>
 
                                          <ul class="dropdown-menu" aria-labelledby="setting">
-                                            <li><a asp-action="logout" asp-controller="account">Log out</a></li>
+                                             <li><a asp-action="index" asp-controller="user">My orders</a></li>
+                                             <li><a asp-action="checkout" asp-controller="basket">Checkout</a></li>
+                                             <li><a asp-action="logout" asp-controller="account">Log out</a></li>
                                         </ul>
                                     }
                                 </div>
