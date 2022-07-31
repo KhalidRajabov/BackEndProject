@@ -120,7 +120,10 @@ namespace BackEndProject.Controllers
                         return View();
                     }
                     await _signInManager.SignInAsync(appUser, isPersistent: true);
-
+                    if (ReturnUrl != null)
+                    {
+                        return Redirect(ReturnUrl);
+                    }
                     return RedirectToAction("index", "dashboard", new { Area = "AdminPanel" });
                 }
             }
@@ -144,20 +147,24 @@ namespace BackEndProject.Controllers
                 ModelState.AddModelError("", "Email or password is wrong");
                 return View(loginvm);
             }
-            /*if (ReturnUrl!=null)
-            {
-                return Redirect(ReturnUrl);
-            }*/
 
 
             await _signInManager.SignInAsync(appUser, isPersistent: true);
+            if (ReturnUrl != null)
+            {
+                return Redirect(ReturnUrl);
+            }
             return RedirectToAction("index", "home");
 
         }
 
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(string returnurl)
         {
             await _signInManager.SignOutAsync();
+            if (returnurl!=null)
+            {
+                return Redirect(returnurl);
+            }
             return RedirectToAction("index", "home");
         }
 

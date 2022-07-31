@@ -77,7 +77,7 @@
                                    <div class="col-xl-3 col-md-4 col-sm-6">
                                     <div class="single-product mt-30">
                                         <div class="product-image">
-                                            <a href="single-product.html">
+                                            <a asp-action="detail" asp-route-id="@item.Id">
                                                 @foreach (var image in item.ProductImages)
                                                 {
                                                     if (image.IsMain)

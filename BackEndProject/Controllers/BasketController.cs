@@ -34,7 +34,7 @@ namespace BackEndProject.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AddItem(int? id)
+        public async Task<IActionResult> AddItem(int? id, string returnurl)
         {
             string username = "";
             bool online = false;
@@ -102,6 +102,10 @@ namespace BackEndProject.Controllers
             };
             //obj data-id ile baghlidir. response "obj" obyektidir,
             //Ok'in icnde return edilmelidir ki API'de response gorsun
+            if (returnurl != null)
+            {
+                return Redirect(returnurl);
+            }
             return RedirectToAction("index", "home");
         }
 
@@ -149,7 +153,7 @@ namespace BackEndProject.Controllers
             return View(products);
         }
 
-        public IActionResult RemoveItem(int? id)
+        public IActionResult RemoveItem(int? id, string returnurl)
         {
             string username = "";
             if (!User.Identity.IsAuthenticated)
@@ -187,6 +191,10 @@ namespace BackEndProject.Controllers
                 Price = $"(${subtotal})",
                 Count = basketCount
             };
+            if (returnurl!=null)
+            {
+                return Redirect(returnurl);
+            }
             return RedirectToAction("showitem");
         }
 

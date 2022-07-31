@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackEndProject.Models
@@ -8,12 +9,19 @@ namespace BackEndProject.Models
     public class Product
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public double Price { get; set; }
+        [Required, MinLength(35)]
         public string Description { get; set; }
+        [Required]
         public double DiscountPercent { get; set; }
+        [Required]
         public double DiscountPrice { get; set; }
+        [Required]
         public double TaxPercent { get; set; }
+        [Required]
         public int Count { get; set; }
         public bool IsAvailability { get; set; }
         public bool IsSpecial { get; set; }

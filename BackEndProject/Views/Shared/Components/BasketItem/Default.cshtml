@@ -16,7 +16,7 @@
                  <div class="cart-item-content media-body">
                      <h5 class="product-name"><a href="single-product.html">@item.Name</a></h5>
                      <span class="product-price">€@item.Price</span>
-                     <a asp-action="removeitem" asp-controller="basket" asp-route-id="@item.Id" class="product-close"><i class="fal fa-times"></i></a>
+                     <a asp-action="removeitem" asp-controller="basket" asp-route-id="@item.Id" asp-route-ReturnUrl="@Context.Request.Path" class="product-close"><i class="fal fa-times"></i></a>
                  </div>
              </div>
          </li>

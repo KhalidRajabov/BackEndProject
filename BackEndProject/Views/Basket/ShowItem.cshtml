@@ -43,7 +43,16 @@
  </div>
     <section class="cart-page pt-10">
         <div class="container-fluid custom-container">
-            <div class="row">
+        @if (Model.Count<1)
+        {
+            <div class="row justify-content-center d-flex flex-column align-content-center">
+            <h1 class="allup-title text-warning">Your basket is empty</h1> 
+            <h5 class="allup-title"><a asp-action="index" asp-controller="home">Go to shopping</a></h5>
+            </div>
+        }
+        else
+        {
+                <div class="row">
                 <div class="col-xl-8">
                     <div class="shopping-cart mt-25">
                         <h4 class="allup-title">Shopping Cart</h4>
@@ -175,7 +184,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        }
+    </div>
     </section>
 
     <!--====== Cart Part Ends ======-->

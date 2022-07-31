@@ -4,6 +4,7 @@ using BackEndProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,8 +31,10 @@ namespace BackEndProject.Controllers
             homeVM.Products =await _context.Products.Where(p=>p.IsDeleted!=true).Take(7)
             .Include(pi=>pi.ProductImages).Include(pc=>pc.Category).Include(b=>b.Brand)
             .Include(tp=>tp.ProductTags).ThenInclude(t=>t.Tags).ToListAsync();
-
-            homeVM.ProductImages = await _context.ProductImages.Include(pi => pi.Product).ToListAsync();
+            homeVM.FeaturedProducts= await _context.Products
+                .Where(p=>p.IsFeatured==true).Where(p=>p.IsDeleted!=true)
+                .Include(i=>i.ProductImages).ToListAsync();
+            //homeVM.ProductImages = await _context.ProductImages.Include(pi => pi.Product).ToListAsync();
             var NewProduct = product.Where(n => n.NewArrival).ToList();
             var Bestseller = product.Where(b=>b.Bestseller).ToList();
             var Featured = product.Where(f => f.IsFeatured).ToList();
@@ -69,6 +72,20 @@ namespace BackEndProject.Controllers
         {
             List<Product> products = _context.Products.Where(p => p.IsDeleted != true).ToList();
             return (int)Math.Ceiling((decimal)products.Count() / take);
+        }
+
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null) return NotFound();
+            Product product = await _context.Products
+                .Include(b=>b.Brand)
+                .Include(i=>i.ProductImages)
+                .Include(pt=>pt.ProductTags).ThenInclude(t=>t.Tags)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            HomeVM vm = new HomeVM();
+            vm.SingleProduct = product;
+            vm.Products = _context.Products.Where(p => p.IsDeleted != true).Include(i => i.ProductImages).ToList();
+            return View(vm);
         }
 
 

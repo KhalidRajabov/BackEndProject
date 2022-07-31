@@ -23,7 +23,7 @@ namespace BackEndProject.ViewComponents
             FooterVM footerVM = new FooterVM();
             
             footerVM.Bio = bio;
-            return View(await Task.FromResult(subscribers));
+            return View(await Task.FromResult(footerVM));
         }
 
     }

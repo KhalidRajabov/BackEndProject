@@ -1,5 +1,5 @@
-﻿@model Subscribers
-<section class="newsletter-area pt-100 pb-100 bg_cover" style="background-image: url(/images/Model.Bio.NewsLetterImgUrl)">
+﻿@model FooterVM
+<section class="newsletter-area pt-100 pb-100 bg_cover" style="background-image: url(/images/@Model.Bio.NewsLetterImgUrl)">
         <div class="container">
             <div class="row justify-content-end">
                 <div class="col-lg-8">
@@ -10,7 +10,7 @@
                         <div class="newsletter-forn">
                             <form method="post">
                                 <input asp-for="Email"  placeholder="Your Email address">
-                                <button type="submit" asp-controller="Subscriber" asp-action="Form">Subscribe</button>
+                                <button class="main-btn" type="submit" asp-controller="Subscriber" asp-action="Form">Subscribe</button>
                             </form>
                         </div>
                     </div> <!-- newsletter content -->
@@ -18,7 +18,7 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </section>
-@*<section class="footer-area bg_cover" style="background-image: url(/images/bg-footer.jpg)">
+<section class="footer-area bg_cover" style="background-image: url(/images/bg-footer.jpg)">
         <div class="footer-widget pt-30 pb-70">
             <div class="container">
                 <div class="row">
@@ -240,4 +240,3 @@
             </div> <!-- Modal content -->
         </div> <!-- Modal dialog -->
     </div> <!-- Modal -->
-*@
