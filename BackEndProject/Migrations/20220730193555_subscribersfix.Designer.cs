@@ -4,14 +4,16 @@ using BackEndProject.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220730193555_subscribersfix")]
+    partial class subscribersfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,6 +42,9 @@ namespace BackEndProject.Migrations
 
                     b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -85,28 +90,6 @@ namespace BackEndProject.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("BackEndProject.Models.BasketItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("BasketItems");
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Bio", b =>
@@ -806,9 +789,6 @@ namespace BackEndProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -820,37 +800,31 @@ namespace BackEndProject.Migrations
                         new
                         {
                             Id = 1,
-                            IsDeleted = false,
                             Name = "Camera"
                         },
                         new
                         {
                             Id = 2,
-                            IsDeleted = false,
                             Name = "Drone"
                         },
                         new
                         {
                             Id = 3,
-                            IsDeleted = false,
                             Name = "Music"
                         },
                         new
                         {
                             Id = 4,
-                            IsDeleted = false,
                             Name = "Memory"
                         },
                         new
                         {
                             Id = 5,
-                            IsDeleted = false,
                             Name = "Gaming"
                         },
                         new
                         {
                             Id = 6,
-                            IsDeleted = false,
                             Name = "Premium"
                         });
                 });
@@ -984,19 +958,6 @@ namespace BackEndProject.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("BackEndProject.Models.BasketItem", b =>
-                {
-                    b.HasOne("BackEndProject.Models.Product", "Product")
-                        .WithMany("BasketItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BackEndProject.Models.AppUser", "User")
-                        .WithMany("BasketItems")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BackEndProject.Models.Category", b =>

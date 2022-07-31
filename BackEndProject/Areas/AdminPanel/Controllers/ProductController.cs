@@ -1,5 +1,6 @@
 ﻿using BackEndProject.DAL;
 using BackEndProject.Extensions;
+using BackEndProject.Helper;
 using BackEndProject.Models;
 using BackEndProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,11 +23,12 @@ namespace BackEndProject.Area.AdminPanel.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
-
-        public ProductController(AppDbContext context, IWebHostEnvironment env)
+        private IConfiguration _config { get; }
+        public ProductController(AppDbContext context, IWebHostEnvironment env, IConfiguration config)
         {
             _context = context;
             _env = env;
+            _config = config;
         }
 
 
@@ -41,29 +44,41 @@ namespace BackEndProject.Area.AdminPanel.Controllers
 
         private int PageCount(int take)
         {
-            List<Product> products = _context.Products.ToList();
+            List<Product> products = _context.Products.Where(p=>p.IsDeleted!=true).ToList();
             return (int)Math.Ceiling((decimal)products.Count() / take);
         }
 
         
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            
+            var mainCategories = await _context.Categories.Where(p => p.ParentId == null).Where(p => p.IsDeleted != true).ToListAsync();
+            var altCategories = await _context.Categories.Where(c => c.ParentId != null).Where(p => p.IsDeleted != true).ToListAsync();
+            ViewBag.altCategories = new SelectList((altCategories).ToList(), "Id", "Name");
             ViewBag.Categories = new SelectList(_context.Categories.Where(c => c.IsDeleted != true).Where(c => c.ParentId == null).ToList(), "Id", "Name");
             ViewBag.Brands = new SelectList(_context.Brands.Where(c => c.IsDeleted != true).ToList(), "Id", "Name");
-            ViewBag.Tags = new SelectList(_context.Tags.ToList(), "Id", "Name");
+            ViewBag.Tags = new SelectList(_context.Tags.Where(t=>t.IsDeleted!=true).ToList(), "Id", "Name");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Product product)
+        public async Task<IActionResult> Create(Product product)
         {
-            ViewBag.Categories = new SelectList(_context.Categories.Where(c=>c.IsDeleted!=true).Where(c=>c.ParentId==null).ToList(), "Id", "Name");
+            var mainCategories = await _context.Categories.Where(p => p.ParentId == null).Where(p => p.IsDeleted != true).ToListAsync();
+            var altCategories = await _context.Categories.Where(c => c.ParentId != null).Where(p => p.IsDeleted != true).ToListAsync();
+            ViewBag.altCategories = new SelectList((altCategories).ToList(), "Id", "Name");
+            ViewBag.Categories = new SelectList(_context.Categories.Where(c => c.IsDeleted != true).Where(c => c.ParentId == null).ToList(), "Id", "Name");
             ViewBag.Brands = new SelectList(_context.Brands.Where(c => c.IsDeleted != true).ToList(), "Id", "Name");
-            ViewBag.Tags = new SelectList(_context.Tags.ToList(), "Id", "Name");
+            ViewBag.Tags = new SelectList(_context.Tags.Where(t => t.IsDeleted != true).ToList(), "Id", "Name");
+            
+            if (product.Name == null)
+            {
+                ModelState.AddModelError("Name", "Cannot be Empty!");
+                return View();
+            }
 
             List<ProductImage> Images = new List<ProductImage>();
-
             foreach (var item in product.Photo)
             {
                 if (item == null)
@@ -102,7 +117,14 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                 CreatedTime = DateTime.Now
             };
             NewProduct.ProductImages[0].IsMain = true;
-
+            if (product.Category == null)
+            {
+                NewProduct.CategoryId = product.CategoryId;
+            }
+            else
+            {
+                NewProduct.CategoryId = product.CategoryId;
+            }
             List<ProductTags> productTags = new List<ProductTags>();
             foreach (int item in product.TagId)
             {
@@ -112,8 +134,22 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                 productTags.Add(productTag);
             }
             NewProduct.ProductTags = productTags;
-            _context.Products.Add(NewProduct);
-            _context.SaveChanges();
+            await _context.AddAsync(NewProduct);
+            await _context.SaveChangesAsync();
+
+            List<Subscribers> subscribers = await _context.Subscribers.ToListAsync();
+            var token = "";
+            EmailHelper helper = new EmailHelper(_config.GetSection("ConfirmationParam:Email").Value, _config.GetSection("ConfirmationParam:Password").Value);
+            foreach (var receiver in subscribers)
+            {
+                token = "Salam";
+                var emailResult = helper.SendNews(receiver.Email, token);
+                continue;
+            }
+            string confirmation = Url.Action("ConfirmEmail", "Account", new
+            {
+                token
+            }, Request.Scheme);
 
             return RedirectToAction("index");
         }

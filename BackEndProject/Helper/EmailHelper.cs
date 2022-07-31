@@ -41,5 +41,33 @@ namespace BackEndProject.Helper
             }
             return false;
         }
+        public bool SendNews(string UserEmail, string token)
+        {
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(_email);
+            mailMessage.To.Add(new MailAddress(UserEmail));
+
+            mailMessage.Subject = "Confirm Email";
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Body = token;
+
+            SmtpClient client = new SmtpClient();
+            client.Credentials = new System.Net.NetworkCredential(_email, _password);
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Port = 587;
+
+            try
+            {
+                client.Send(mailMessage);
+                return true;
+            }
+            catch (System.Exception)
+            {
+
+
+            }
+            return false;
+        }
     }
 }

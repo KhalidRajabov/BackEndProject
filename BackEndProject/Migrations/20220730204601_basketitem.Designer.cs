@@ -4,14 +4,16 @@ using BackEndProject.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220730204601_basketitem")]
+    partial class basketitem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -806,9 +808,6 @@ namespace BackEndProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -820,37 +819,31 @@ namespace BackEndProject.Migrations
                         new
                         {
                             Id = 1,
-                            IsDeleted = false,
                             Name = "Camera"
                         },
                         new
                         {
                             Id = 2,
-                            IsDeleted = false,
                             Name = "Drone"
                         },
                         new
                         {
                             Id = 3,
-                            IsDeleted = false,
                             Name = "Music"
                         },
                         new
                         {
                             Id = 4,
-                            IsDeleted = false,
                             Name = "Memory"
                         },
                         new
                         {
                             Id = 5,
-                            IsDeleted = false,
                             Name = "Gaming"
                         },
                         new
                         {
                             Id = 6,
-                            IsDeleted = false,
                             Name = "Premium"
                         });
                 });

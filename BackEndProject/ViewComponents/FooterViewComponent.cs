@@ -1,5 +1,6 @@
 ﻿using BackEndProject.DAL;
 using BackEndProject.Models;
+using BackEndProject.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -17,8 +18,12 @@ namespace BackEndProject.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            Subscribers subscribers = new Subscribers();
             Bio bio = _context.Bios.FirstOrDefault();
-            return View(await Task.FromResult(bio));
+            FooterVM footerVM = new FooterVM();
+            
+            footerVM.Bio = bio;
+            return View(await Task.FromResult(subscribers));
         }
 
     }

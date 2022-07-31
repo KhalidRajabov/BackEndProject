@@ -49,5 +49,7 @@ namespace BackEndProject.Models
         public List<ProductImage> ProductImages { get; set; }
 
         public List<OrderItem> OrderItem { get; set; }
+
+        public List<BasketItem> BasketItems { get; set; }
     }
 }

@@ -80,7 +80,7 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             userVM.Fullname = user.Fullname;
             userVM.Email = user.Email;
             userVM.Phone = user.PhoneNumber;
-            userVM.IsActivated = user.IsActivated;
+     
             userVM.Username = user.UserName;
             userVM.EmailConfirmed = user.EmailConfirmed;
             return View(userVM);
@@ -96,7 +96,7 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             userVM.Fullname = user.Fullname;
             userVM.Email = user.Email;
             userVM.Phone = user.PhoneNumber;
-            userVM.IsActivated = user.IsActivated;
+       
             userVM.Username = user.UserName;
             userVM.Id = user.Id;
             return View(userVM);

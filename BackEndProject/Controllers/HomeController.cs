@@ -52,6 +52,12 @@ namespace BackEndProject.Controllers
 
             return PartialView("_SearchPartial", products);
         }
+        
+        public IActionResult Shop()
+        {
+            List<Product> products = _context.Products.Where(p=>p.IsDeleted!=true).Include(Pi=>Pi.ProductImages).ToList();
+            return View(products);
+        }
 
 
     }

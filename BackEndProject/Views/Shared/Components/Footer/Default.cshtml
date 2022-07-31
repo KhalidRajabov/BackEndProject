@@ -1,5 +1,5 @@
-﻿@model Bio
-<section class="newsletter-area pt-100 pb-100 bg_cover" style="background-image: url(/images/@Model.NewsLetterImgUrl)">
+﻿@model Subscribers
+<section class="newsletter-area pt-100 pb-100 bg_cover" style="background-image: url(/images/Model.Bio.NewsLetterImgUrl)">
         <div class="container">
             <div class="row justify-content-end">
                 <div class="col-lg-8">
@@ -8,9 +8,9 @@
                         <p>allup is a powerful eCommerce HTML Template</p>
 
                         <div class="newsletter-forn">
-                            <form action="#">
-                                <input type="text" placeholder="Your Email address">
-                                <button class="main-btn">Subscribe</button>
+                            <form method="post">
+                                <input asp-for="Email"  placeholder="Your Email address">
+                                <button type="submit" asp-controller="Subscriber" asp-action="Form">Subscribe</button>
                             </form>
                         </div>
                     </div> <!-- newsletter content -->
@@ -18,7 +18,7 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </section>
-<section class="footer-area bg_cover" style="background-image: url(/images/bg-footer.jpg)">
+@*<section class="footer-area bg_cover" style="background-image: url(/images/bg-footer.jpg)">
         <div class="footer-widget pt-30 pb-70">
             <div class="container">
                 <div class="row">
@@ -27,10 +27,10 @@
                             <h4 class="footer-title">Contact Details</h4>
 
                             <ul>
-                                <li><i class="fas fa-map-marker-alt"></i> @Model.Address</li>
-                                <li><i class="fas fa-phone"></i> <a href="tell:123-456-789">+@Model.Phone</a></li>
-                                <li><i class="fas fa-envelope"></i><a href="mailto://email@yourwebsitename.com">@Model.Email</a></li>
-                                <li><i class="far fa-clock"></i> @Model.WorkTimes</li>
+                                <li><i class="fas fa-map-marker-alt"></i> @Model.Bio.Address</li>
+                                <li><i class="fas fa-phone"></i> <a href="tell:123-456-789">+@Model.Bio.Phone</a></li>
+                                <li><i class="fas fa-envelope"></i><a href="mailto://email@yourwebsitename.com">@Model.Bio.Email</a></li>
+                                <li><i class="far fa-clock"></i> @Model.Bio.WorkTimes</li>
                             </ul>
                         </div> <!-- footer contact -->
                     </div>
@@ -89,10 +89,10 @@
             <div class="container">
                 <div class="footer-copyright-payment text-center d-lg-flex justify-content-between align-items-center">
                     <div class="copyright-text">
-                        <p>Copyright 2020 &copy; <a href="https://spcs.me/serveofgod/">@Model.Author</a> . All Rights Reserved</p>
+                        <p>Copyright 2020 &copy; <a href="https://spcs.me/serveofgod/">@Model.Bio.Author</a> . All Rights Reserved</p>
                     </div>
                     <div class="payment">
-                        <img src="~/images/@Model.CardsImageUrl" alt="payment">
+                        <img src="~/images/@Model.Bio.CardsImageUrl" alt="payment">
                     </div>
                 </div> <!-- footer copyright payment -->
             </div> <!-- container -->
@@ -240,3 +240,4 @@
             </div> <!-- Modal content -->
         </div> <!-- Modal dialog -->
     </div> <!-- Modal -->
+*@
