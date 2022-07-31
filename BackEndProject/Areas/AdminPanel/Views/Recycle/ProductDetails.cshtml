@@ -32,7 +32,7 @@
                     }
                 </h5>
                       <h5 class="card-text">Tax: @Model.TaxPercent</h5>
-                      @Html.Raw(Model.IsAvailability==true?"<h5 class='card-text'>Price: Available</h5>":"<h5 class='card-text'>Price: Out of stock</h5>")
+                      @Html.Raw(Model.Count>0?"<h5 class='card-text'>Instock: Available</h5>":"<h5 class='card-text'>Instock: Out of stock</h5>")
                       <h5 class="card-text">In stock: @Model.Count</h5>
                       <h5 class="card-text">Deleted time: @Model.DeletedAt</h5>
 

@@ -46,6 +46,7 @@
                     
                     
                     <div class="form-group">
+                        <label asp-for="Category"></label>
                     <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories" >
                         <option selected>Select category</option>
                     </select>
@@ -96,7 +97,8 @@
 
 @section JqueryValidationScript{
     <partial name="_Validation"/>
-         $(function () {
+    <script>
+        $(function () {
     $("select#CategoryId").change(function () {
         var cid = $(this).val();
         
@@ -110,4 +112,5 @@
         });
     })
 });
+    </script>
 }

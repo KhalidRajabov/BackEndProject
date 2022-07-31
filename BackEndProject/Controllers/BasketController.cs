@@ -116,7 +116,6 @@ namespace BackEndProject.Controllers
             {
                 username = User.Identity.Name;
             }
-            //string name = HttpContext.Session.GetString("name");
             string basket = Request.Cookies[$"basket{username}"];
             List<BasketVM> products;
             if (basket != null)

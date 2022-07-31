@@ -154,24 +154,20 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             return RedirectToAction("index");
         }
 
-        public async Task<IActionResult> Detail(int? id)
-        {
-            if (id == null) return NotFound();
-            Product dbProduct = await _context.Products.Include(c => c.Category).Where(c=>c.Category.ParentId!=null)
-                .Include(c => c.ProductTags).ThenInclude(t => t.Tags)
-                .Include(pi => pi.ProductImages)
-                .FirstOrDefaultAsync(c => c.Id == id);
-            if (dbProduct == null) return NotFound();
-            return View(dbProduct);
-        }
+        
 
         public async Task<IActionResult> Update(int? id)
         {
+            var altCategories = _context.Categories.Where(c => c.ParentId != null).Where(p => p.IsDeleted != true).ToList();
             ViewBag.Brands = new SelectList(_context.Brands.ToList(), "Id", "Name");
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
-            ViewBag.Tags = new SelectList(_context.Tags.ToList(), "Id", "Name");
+            ViewBag.Categories = new SelectList(_context.Categories.Where(c=>c.IsDeleted!=true).Where(c=>c.ParentId==null).ToList(), "Id", "Name");
+            ViewBag.altCategories = new SelectList((altCategories).ToList(), "Id", "Name");
+            ViewBag.Tags = new SelectList(_context.Tags.Where(t=>t.IsDeleted!=true).ToList(), "Id", "Name");
             if (id == null) return NotFound();
-            Product product = await _context.Products.Include(i=>i.ProductImages)
+            Product product = await _context.Products
+                .Include(i=>i.ProductImages)
+                .Include(c=>c.Category)
+                .Include(b=>b.Brand)
                 .Include(t=>t.ProductTags).ThenInclude(p=>p.Tags).FirstOrDefaultAsync(c=>c.Id ==id);
             if (product == null) return NotFound();
             return View(product);
@@ -184,9 +180,11 @@ namespace BackEndProject.Area.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Product product)
         {
+            var altCategories = _context.Categories.Where(c => c.ParentId != null).Where(p => p.IsDeleted != true).ToList();
             ViewBag.Brands = new SelectList(_context.Brands.ToList(), "Id", "Name");
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
-            ViewBag.Tags = new SelectList(_context.Tags.ToList(), "Id", "Name");
+            ViewBag.Categories = new SelectList(_context.Categories.Where(c=>c.IsDeleted!=true).Where(c=>c.ParentId==null).ToList(), "Id", "Name");
+            ViewBag.altCategories = new SelectList((altCategories).ToList(), "Id", "Name");
+            ViewBag.Tags = new SelectList(_context.Tags.Where(t => t.IsDeleted != true).ToList(), "Id", "Name");
             if (!ModelState.IsValid)
             {
                 return View();
@@ -197,19 +195,20 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                 .ThenInclude(t => t.Tags)
                 .Include(b => b.Brand)
                 .Include(c => c.Category)
+                .Where(c=>c.IsDeleted!=true)
                 .FirstOrDefaultAsync(b => b.Id == product.Id);
             if (dbProduct == null)
             {
                 return View();
             }
             List<ProductImage> images = new List<ProductImage>();
-            Product dbProductName = _context.Products.FirstOrDefault(c => c.Name.ToLower().Trim() == product.Name.ToLower().Trim());
             string path = "";
             if (product.Photo == null)
             {
                 foreach (var item in dbProduct.ProductImages)
                 {
                     item.ImageUrl = item.ImageUrl;
+                    _context.Add(item);
                 }
             }
             else
@@ -218,18 +217,18 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                 {
                     if (item == null)
                     {
-                        ModelState.AddModelError("Photo", "Don't be Empty");
+                        ModelState.AddModelError("Photo", "Can not be empty");
                         return View();
                     }
                     if (!item.IsImage())
                     {
-                        ModelState.AddModelError("Photo", "Only Image Files");
+                        ModelState.AddModelError("Photo", "Only images");
                         return View();
                     }
 
-                    if (item.ValidSize(2000))
+                    if (item.ValidSize(20000))
                     {
-                        ModelState.AddModelError("Photo", "Size oversize");
+                        ModelState.AddModelError("Photo", "The image size is larger than required size(max 20 mb)");
                         return View();
                     }
                     ProductImage image = new ProductImage();
@@ -253,13 +252,13 @@ namespace BackEndProject.Area.AdminPanel.Controllers
                 {
                     if (!item.IsImage())
                     {
-                        ModelState.AddModelError("Photo", "Only Image Files");
+                        ModelState.AddModelError("Photo", "Images only");
                         return View();
                     }
 
-                    if (item.ValidSize(1000))
+                    if (item.ValidSize(20000))
                     {
-                        ModelState.AddModelError("Photo", "Size is higher max 1mb");
+                        ModelState.AddModelError("Photo", "The image size is larger than required size(max 20 mb)");
                         return View();
                     }
                 }
@@ -278,16 +277,48 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             }
             else return NotFound();
 
-            if (dbProductName != null)
+            if (product.TagId == null)
             {
-                if (dbProduct.Name != dbProduct.Name)
+                foreach (var item1 in dbProduct.ProductTags)
                 {
-                    ModelState.AddModelError("Name", "This Name already was taken");
-                    return View();
+                    item1.TagId = item1.TagId;
                 }
             }
-            
-            
+            else
+            {
+                List<ProductTags> productTags = new List<ProductTags>();
+                foreach (int item in product.TagId)
+                {
+                    ProductTags productTag = new ProductTags();
+                    productTag.TagId = item;
+                    productTag.ProductId = dbProduct.Id;
+                    productTags.Add(productTag);
+                }
+                dbProduct.ProductTags = productTags;
+            }
+            if (product.Category == null && product.Category == null)
+            {
+                dbProduct.CategoryId = dbProduct.CategoryId;
+            }
+            else
+            {
+                dbProduct.CategoryId = product.CategoryId;
+            }
+
+            if (product.Count == 0)
+            {
+                dbProduct.IsAvailability = false;
+            }
+            List<Category> categories = _context.Categories.Where(p => p.IsDeleted != true).Where(c => c.ImageUrl != null).ToList();
+            for (int i = 0; i < categories.Count; i++)
+            {
+                if (product.Category == categories[0])
+                {
+                    dbProduct.CategoryId = dbProduct.CategoryId;
+                }
+            }
+
+
 
 
             dbProduct.Name = product.Name;
@@ -295,7 +326,6 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             dbProduct.ProductImages = images;
             dbProduct.Count = product.Count;
             dbProduct.IsDeleted = false;
-            dbProduct.IsAvailability = true;
             dbProduct.IsFeatured = false;
             dbProduct.DiscountPercent = product.DiscountPercent;
             dbProduct.DiscountPrice = product.Price - (product.Price * product.DiscountPercent) / 100;
@@ -311,7 +341,17 @@ namespace BackEndProject.Area.AdminPanel.Controllers
 
 
 
-
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null) return NotFound();
+            Product dbProduct = await _context.Products.Include(c => c.Category)
+                .Include(c => c.ProductTags)
+                .ThenInclude(t => t.Tags)
+                .Include(pi => pi.ProductImages)
+                .FirstOrDefaultAsync(c => c.Id == id);
+            if (dbProduct == null) return NotFound();
+            return View(dbProduct);
+        }
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();

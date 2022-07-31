@@ -36,7 +36,7 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
 
         private int PageCount(int take)
         {
-            List<Product> products = _context.Products.ToList();
+            List<Product> products = _context.Products.Where(p=>p.IsDeleted==true).ToList();
             return (int)Math.Ceiling((decimal)products.Count() / take);
         }
         public IActionResult ProductDetails(int? id)

@@ -147,13 +147,13 @@ namespace BackEndProject.DAL
                 new Category
                 {
                     Id = 17,
-                    Name = "Gaming Notebook",
+                    Name = "Iphone",
                     ParentId = 4
                 },
                 new Category
                 {
                     Id = 18,
-                    Name = "Word Notebook",
+                    Name = "Android",
                     ParentId = 4
                 },
                 new Category
