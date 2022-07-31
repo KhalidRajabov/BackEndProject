@@ -27,7 +27,7 @@ namespace BackEndProject.Controllers
             HomeVM homeVM = new HomeVM();
             homeVM.Sliders = await _context.Sliders.ToListAsync();
             homeVM.Categories = await _context.Categories.Where(p => p.IsDeleted != true).Where(c=>c.ParentId==null).ToListAsync();
-            homeVM.Products =await _context.Products.Where(p=>p.IsDeleted!=true)
+            homeVM.Products =await _context.Products.Where(p=>p.IsDeleted!=true).Take(7)
             .Include(pi=>pi.ProductImages).Include(pc=>pc.Category).Include(b=>b.Brand)
             .Include(tp=>tp.ProductTags).ThenInclude(t=>t.Tags).ToListAsync();
 
@@ -53,10 +53,22 @@ namespace BackEndProject.Controllers
             return PartialView("_SearchPartial", products);
         }
         
-        public IActionResult Shop()
+        
+        public IActionResult Shop(int page = 1, int take = 12)
         {
-            List<Product> products = _context.Products.Where(p=>p.IsDeleted!=true).Include(Pi=>Pi.ProductImages).ToList();
-            return View(products);
+
+            List<Product> product = _context.Products.Where(p=>p.IsDeleted!=true)
+                .Include(p => p.Category).Where(c=>c.IsDeleted!=true)
+                .Include(pi => pi.ProductImages).Skip((page - 1) * take).Take(take).ToList();
+            PaginationVM<Product> paginationVM = new PaginationVM<Product>(product, PageCount(take), page);
+
+            return View(paginationVM);
+        }
+
+        private int PageCount(int take)
+        {
+            List<Product> products = _context.Products.Where(p => p.IsDeleted != true).ToList();
+            return (int)Math.Ceiling((decimal)products.Count() / take);
         }
 
 
