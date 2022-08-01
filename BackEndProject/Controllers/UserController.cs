@@ -27,7 +27,7 @@ namespace BackEndProject.Controllers
         public async Task<IActionResult> Index()
         {
             AppUser user = await _usermanager.FindByNameAsync(User.Identity.Name);
-            List<Order> order = _context.Orders.Where(o => o.AppUserId == user.Id).ToList();
+            List<Order> order = _context.Orders.Where(o => o.AppUserId == user.Id).OrderByDescending(o=>o.Id).ToList();
             OrderVM orderVM = new OrderVM();
             orderVM.Orders = order;
             return View(orderVM);

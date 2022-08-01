@@ -35,7 +35,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
         public IActionResult Index(int page = 1, int take = 5)
         {
 
-            List<Product> product = _context.Products.Include(p => p.Category).Include(pi=>pi.ProductImages)
+            List<Product> product = _context.Products.OrderByDescending(p=>p.Id).Include(p => p.Category).Include(pi=>pi.ProductImages)
                 .Where(p=>p.IsDeleted!=true).Skip((page - 1) * take).Take(take).ToList();
             PaginationVM<Product> paginationVM = new PaginationVM<Product>(product, PageCount(take), page);
 

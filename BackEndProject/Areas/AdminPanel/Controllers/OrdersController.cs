@@ -34,7 +34,7 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
         {
             List<AppUser> users = await _userManager.Users.Include(o => o.Orders).ThenInclude(i => i.OrderItems).ToListAsync();
             OrderVM orderVM = new OrderVM();
-            List<Order> orders = await _context.Orders.Include(u => u.AppUser).Include(o => o.OrderItems).ToListAsync();
+            List<Order> orders = await _context.Orders.Include(u => u.AppUser).OrderByDescending(o=>o.Id).Include(o => o.OrderItems).ToListAsync();
             orderVM.Orders = orders;
             orderVM.User = users;
             return View(orderVM);

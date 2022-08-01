@@ -52,15 +52,40 @@
                         @foreach (var item in Model.OrderItems)
                        {
                             count++;
+                           if (Model.Order.OrderStatus==OrderStatus.Refused)
+                                            {
                            <tr>
-                          <td>@count</td>
+                          <td class="text-danger">@count</td>
                           
-                          <td>@item.Product.Name</td>
-                          <td>@item.Product.Price</td>
-                          <td>@item.Count</td>
-                          <td>@item.Total</td>
+                          <td class="text-danger">@item.Product.Name</td>
+                          <td class="text-danger">@item.Product.Price</td>
+                          <td class="text-danger">@item.Count</td>
+                          <td class="text-danger">@item.Total</td>
                           
-                        </tr>
+                        </tr>}
+                        else if (Model.Order.OrderStatus==OrderStatus.Pending)
+                                            {
+                           <tr>
+                          <td class="text-info">@count</td>
+                          
+                          <td class="text-info">@item.Product.Name</td>
+                          <td class="text-info">@item.Product.Price</td>
+                          <td class="text-info">@item.Count</td>
+                          <td class="text-info">@item.Total</td>
+                          
+                        </tr>}
+                        else if (Model.Order.OrderStatus==OrderStatus.Approved)
+                                            {
+                           <tr>
+                          <td class="text-success">@count</td>
+                          
+                          <td class="text-success">@item.Product.Name</td>
+                          <td class="text-success">@item.Product.Price</td>
+                          <td class="text-success">@item.Count</td>
+                          <td class="text-success">@item.Total</td>
+                          
+                        </tr>}
+
                        }
                       </tbody>
                     </table>
