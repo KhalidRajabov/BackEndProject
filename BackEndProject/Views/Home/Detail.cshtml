@@ -28,7 +28,7 @@
                            @foreach (var item in Model.SingleProduct.ProductImages)
                           {
                                <div class="single-image">
-                                <img src="~/images/product/@item.ImageUrl" alt="">
+                                <img width="600" height="500" src="~/images/product/@item.ImageUrl" alt="">
                             </div>
                           }
                         </div>
@@ -37,7 +37,7 @@
                             <ul class="product-single-thumb">
                                 @foreach (var item in Model.SingleProduct.ProductImages)
                                {
-                               <li><img src="~/images/product/@item.ImageUrl" alt="product"></li>    
+                               <li><img width="150" height="150" src="~/images/product/@item.ImageUrl" alt="product"></li>    
                                }
                                 
                             </ul>
@@ -73,8 +73,8 @@
                         <div class="product-price">
                                @if (Model.SingleProduct.DiscountPercent>0)
                                             {
-                                                <span class="regular-price ">€@Model.SingleProduct.Price</span>
-                                                <span class="price-sale">€@Model.SingleProduct.DiscountPrice</span>
+                                                <span class="regular-price ">€@Model.SingleProduct.DiscountPrice</span>
+                                                <span class="price-sale">€@Model.SingleProduct.Price</span>
                                             }
                                             else{
                                                 <span class="price-sale">€@Model.SingleProduct.Price</span>
@@ -95,7 +95,7 @@
                             </div>
                             <div class="single-info">
                                 <span class="title"> Availability :</span>
-                                @if (Model.SingleProduct.IsAvailability)
+                                @if (Model.SingleProduct.Count>0)
                             {
                                 <span class="value">In-stock </span>
                             }

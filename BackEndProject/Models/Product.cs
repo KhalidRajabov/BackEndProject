@@ -31,6 +31,7 @@ namespace BackEndProject.Models
         public bool InStock { get; set; }
         public bool IsDeleted { get; set; }
 
+
         [NotMapped]
         public List<IFormFile> Photo { get; set; }
 

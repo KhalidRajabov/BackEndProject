@@ -10,7 +10,7 @@
                         <div class="newsletter-forn">
                             <form method="post">
                                 <input asp-for="Email"  placeholder="Your Email address">
-                                <button class="main-btn" type="submit" asp-controller="Subscriber" asp-action="Form">Subscribe</button>
+                                <button class="main-btn" type="submit" asp-controller="Subscriber" asp-action="Form" asp-route-ReturnUrl="@Context.Request.Path">Subscribe</button>
                             </form>
                         </div>
                     </div> <!-- newsletter content -->

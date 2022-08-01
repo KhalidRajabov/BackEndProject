@@ -41,13 +41,13 @@ namespace BackEndProject.Helper
             }
             return false;
         }
-        public bool SendNews(string UserEmail, string token)
+        public bool SendNews(string UserEmail, string token, string subject)
         {
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress(_email);
             mailMessage.To.Add(new MailAddress(UserEmail));
 
-            mailMessage.Subject = "Confirm Email";
+            mailMessage.Subject = subject;
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = token;
 

@@ -42,7 +42,17 @@
                       <input asp-for="Count" class="form-control" placeholder="Count">
                       <span style="color: red;" asp-validation-for="Count"></span>
                     </div>
+                         <div class="form-group">
+                      <label asp-for="DiscountPercent"></label>
+                      <input asp-for="DiscountPercent" class="form-control" placeholder="Discount Percent">
+                      <span style="color: red;" asp-validation-for="DiscountPercent"></span>
+                    </div>
 
+                    <div class="form-group">
+                      <label asp-for="TaxPercent"></label>
+                      <input asp-for="TaxPercent" class="form-control" placeholder="Tax Percent">
+                      <span style="color: red;" asp-validation-for="TaxPercent"></span>
+                    </div>
                      <div class="form-group">
                       <label asp-for="Description"></label>
                       <textarea asp-for="Description" class="form-control" placeholder="Description">

@@ -12,5 +12,6 @@ namespace BackEndProject.ViewModels
         public List<ProductImage> ProductImages { get; set; }
         public Product SingleProduct { get; set; }
         public List<Product> FeaturedProducts { get; set; }
+
     }
 }

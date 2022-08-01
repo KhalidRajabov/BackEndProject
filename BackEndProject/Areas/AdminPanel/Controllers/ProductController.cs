@@ -137,19 +137,7 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             await _context.AddAsync(NewProduct);
             await _context.SaveChangesAsync();
 
-            List<Subscribers> subscribers = await _context.Subscribers.ToListAsync();
-            var token = "";
-            EmailHelper helper = new EmailHelper(_config.GetSection("ConfirmationParam:Email").Value, _config.GetSection("ConfirmationParam:Password").Value);
-            foreach (var receiver in subscribers)
-            {
-                token = "Salam";
-                var emailResult = helper.SendNews(receiver.Email, token);
-                continue;
-            }
-            string confirmation = Url.Action("ConfirmEmail", "Account", new
-            {
-                token
-            }, Request.Scheme);
+      
 
             return RedirectToAction("index");
         }
@@ -325,8 +313,6 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             dbProduct.Price = product.Price;
             dbProduct.ProductImages = images;
             dbProduct.Count = product.Count;
-            dbProduct.IsDeleted = false;
-            dbProduct.IsFeatured = false;
             dbProduct.DiscountPercent = product.DiscountPercent;
             dbProduct.DiscountPrice = product.Price - (product.Price * product.DiscountPercent) / 100;
             dbProduct.BrandId = product.BrandId;
@@ -334,6 +320,24 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             dbProduct.TaxPercent = product.TaxPercent;
             dbProduct.Description = product.Description;
             dbProduct.LastUpdatedAt = System.DateTime.Now;
+            if (dbProduct.DiscountPercent>30)
+            {
+                List<Subscribers> subscribers = await _context.Subscribers.ToListAsync();
+                var token = "";
+                string subject = "Endirim var!";
+                EmailHelper helper = new EmailHelper(_config.GetSection("ConfirmationParam:Email").Value, _config.GetSection("ConfirmationParam:Password").Value);
+                foreach (var receiver in subscribers)
+                {
+                    token = $"Salam. {dbProduct.Name} məhsulunda {dbProduct.DiscountPercent}% endirim var. \n" +
+                        $"Məhsula keçid linki https://localhost:44347/Home/detail/{dbProduct.Id}";
+                    var emailResult = helper.SendNews(receiver.Email, token, subject);
+                    continue;
+                }
+                string confirmation = Url.Action("ConfirmEmail", "Account", new
+                {
+                    token
+                }, Request.Scheme);
+            }
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");

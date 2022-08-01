@@ -1036,7 +1036,7 @@
                                             <span class="regular-price">€@item.Price</span>
                                         </div>
                                         <div class="product-cart">
-                                            <a class="main-btn main-btn-2" href="#">Add to cart</a>
+                                            <a class="main-btn main-btn-2" asp-action="additem" asp-controller="basket" asp-route-id="@item.Id" asp-route-ReturnUrl="@Context.Request.Path">Add to cart</a>
                                         </div>
                                     </div>
                                 </div> <!-- special products countdown -->
