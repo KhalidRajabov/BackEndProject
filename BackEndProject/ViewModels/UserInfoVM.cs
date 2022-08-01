@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BackEndProject.Models;
+using System.Collections.Generic;
 
 namespace BackEndProject.ViewModels
 {
@@ -14,5 +15,6 @@ namespace BackEndProject.ViewModels
         public bool IsActivated { get; set; }
         public List<string> Role { get; set; }
         public string About { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

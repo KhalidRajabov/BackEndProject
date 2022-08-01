@@ -1,4 +1,7 @@
-﻿namespace BackEndProject.ViewModels
+﻿using BackEndProject.Models;
+using System.Collections.Generic;
+
+namespace BackEndProject.ViewModels
 {
     public class UserVM
     {
@@ -9,5 +12,6 @@
         public string Phone { get; set; }
         public bool IsActivated { get; set; }
         public string Role { get; set; }
+        
     }
 }

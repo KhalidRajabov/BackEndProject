@@ -1,8 +1,10 @@
-﻿using BackEndProject.Models;
+﻿using BackEndProject.DAL;
+using BackEndProject.Models;
 using BackEndProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,16 +18,19 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly AppDbContext _context;
 
         public UserManagerController
             (UserManager<AppUser> usermanager,
             RoleManager<IdentityRole> roleManager,
-            SignInManager<AppUser> signInManager
+            SignInManager<AppUser> signInManager,
+            AppDbContext context
             )
         {
             _userManager = usermanager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         public IActionResult Index(string search)
@@ -69,11 +74,12 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
             await _userManager.RemoveFromRolesAsync(user, removedRoles);
             return RedirectToAction("index");
         }
-        public async Task<IActionResult> Detail(string id)
+        public async Task<IActionResult> Detail(string? id)
         {
             if (id == null) return NotFound();
             AppUser user = await _userManager.FindByIdAsync(id);
             if (user == null) return NotFound();
+            List<Order> order = _context.Orders.Where(o => o.AppUserId == user.Id).OrderByDescending(o => o.Id).ToList();
             UserInfoVM userVM = new UserInfoVM();
             var roles = await _userManager.GetRolesAsync(user);
             userVM.Role = roles.ToList();
@@ -83,7 +89,21 @@ namespace BackEndProject.Areas.AdminPanel.Controllers
      
             userVM.Username = user.UserName;
             userVM.EmailConfirmed = user.EmailConfirmed;
+            userVM.Orders = order;
+            
             return View(userVM);
+        }
+        public async Task<IActionResult> OrderDetail(int id)
+        {
+            Order order = await _context.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
+            List<OrderItem> orderItems = await _context.OrderItems.Where(o => o.OrderId == order.Id)
+                .Include(p => p.Product).ToListAsync();
+            AppUser user = await _userManager.Users.FirstOrDefaultAsync(i => i.Id == order.AppUserId);
+            OrderItemVM orderItemVM = new OrderItemVM();
+            orderItemVM.User = user;
+            orderItemVM.Order = order;
+            orderItemVM.OrderItems = orderItems;
+            return View(orderItemVM);
         }
         public async Task<IActionResult> Delete(string id)
         {
