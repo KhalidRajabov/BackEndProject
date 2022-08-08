@@ -211,9 +211,20 @@
                                             <span class="count">@ViewBag.BasketCount</span>
                                         </a>
                                     </div>
-                                   
+                                   <div class="mini-cart">
+     <ul class="cart-items">
                                     @await Component.InvokeAsync("BasketItem");
-
+                                     </ul>
+     <div class="price_content">
+         <div class="cart-total price_inline">
+             <span class="label">Total</span>
+             <span class="value">€@(ViewBag.TotalPrice)</span>
+         </div>
+     </div> <!-- price content -->
+     <div class="checkout text-center">
+         <a  asp-controller="basket" asp-action="checkout" class="main-btn">Checkout</a>
+     </div>
+ </div> <!-- mini cart -->
                                 </div>
                             </div> <!-- header search cart -->
                         </div>
