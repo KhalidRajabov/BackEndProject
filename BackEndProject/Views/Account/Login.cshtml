@@ -1,7 +1,11 @@
-﻿@model LoginVM
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> _signinManager
+@model LoginVM
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var schemes = await _signinManager.GetExternalAuthenticationSchemesAsync();
+    var loginproviders = schemes.ToList();
 }
 
 
@@ -25,6 +29,22 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="login-register-wrapper mt-30">
+                        @if (loginproviders.Count>0)
+                            {
+                                    <div class="col-lg-6 justify-content-between">
+                                        <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" role="form">
+                                            <div class="col-12 justify-content-between">
+                                                
+                                                    @foreach (var item in loginproviders)
+                                                        {
+                                                            <button type="submit" class="btn btn-warning" name="provider" value="@item.Name" 
+                                                            title="Login using your @item.Name" account>@item.Name</button>    
+                                                        }
+                                                
+                                            </div>
+                                        </form>
+                                    </div>
+                            }
                         <h4 class="allup-title">Login to Your Account</h4>
                         <form method="post">
                             <div class="text-danger" asp-validation-summary="ModelOnly"></div>
@@ -47,7 +67,10 @@
                         <p class="mt-20"><a href="#">Lost your password?</a></p>
                         <p class="mt-10">No account? <a href="register.html">Create one here.</a></p>
                     </div>
+
+                    
                 </div>
+                
             </div>
         </div>
     </section>
@@ -55,7 +78,7 @@
     <!--====== Login Part Ends ======-->
 
     <!--====== Brand Part Start ======-->
-
+    @*asp-route-ReturnUrl="@Context.Request.Path"*@
     <div class="brand-area pt-80">
         <div class="container-fluid custom-container">
             <div class="row brand-active">

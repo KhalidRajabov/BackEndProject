@@ -319,6 +319,9 @@ namespace BackEndProject.Area.AdminPanel.Controllers
             dbProduct.CategoryId = product.CategoryId;
             dbProduct.TaxPercent = product.TaxPercent;
             dbProduct.Description = product.Description;
+            dbProduct.IsFeatured=product.IsFeatured;
+            dbProduct.NewArrival=product.NewArrival;
+            dbProduct.Bestseller = product.Bestseller;
             dbProduct.LastUpdatedAt = System.DateTime.Now;
             if (dbProduct.DiscountPercent>30)
             {

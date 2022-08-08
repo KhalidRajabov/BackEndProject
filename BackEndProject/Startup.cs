@@ -1,6 +1,8 @@
 using BackEndProject.DAL;
 using BackEndProject.Helper;
 using BackEndProject.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,13 +22,12 @@ namespace BackEndProject
     {
         private readonly IConfiguration _config;
 
+
         public Startup(IConfiguration config)
         {
             _config = config;
         }
-
-        public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -59,6 +60,18 @@ namespace BackEndProject
 
 
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddErrorDescriber<RegisterErrorMessages>();
+
+            services.AddAuthentication()
+                .AddFacebook(opt=>
+                {
+                    opt.AppId = _config["Authentication:Facebook:AppId"];
+                    opt.AppSecret = _config["Authentication:Facebook:AppSecret"];
+                })
+                .AddGoogle(opt =>
+                {
+                    opt.ClientId = _config["Authentication:Google:ClientId"];
+                    opt.ClientSecret = _config["Authentication:Google:ClientSecret"];
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
